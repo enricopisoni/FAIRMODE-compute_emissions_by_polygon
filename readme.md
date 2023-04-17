@@ -30,12 +30,11 @@ POLYGONS <br>
 (2)Extract all the contents in a user-executable folder ($app_root) <br>
 (3)-->Follow PYTHON/CONDA ENV instructions<-- <br>
 (4)Create (or check the existence and the full permission of) $app_root/output <br>
-(5)Change/adapt the scripts <br>
+(5a)Change/adapt the scripts <br>
 &nbsp;&nbsp;&nbsp;&nbsp;(a)for windows they are in $app_root + \dev\bat\*.bat <br>
 &nbsp;&nbsp;&nbsp;&nbsp;(b)for unix they are in $app_root + /dev/sh/*.sh <br>
-
-	_Change properly $app_root (for the scripts related to your installation Win or Unix) <br>
-	_Change properly output
+_(5b)Change properly $app_root value (for the scripts related to your installation Win or Unix) <br>
+(5c)Create $app_root/output/zs folder <br>
 
 
 PYTHON/CONDA ENV
@@ -80,7 +79,7 @@ These 3 rows allows to select the type of data format (asc vs gtiff) and the gri
 
 ## Input description
 
-(0)Put grids folder in $app_root/data/bottom_up_emissions/
+(0)Put grids folder in $app_root/data/bottom_up_emissions/  <br>
 (1)Each file must contain one and only one data grid/matrix (Single year / Single pollutant / Single sector)  <br>
 (2)Format: ASC / GEOTIFF accepted
 (3)FileName: Each file must follow  a name convention like this:
