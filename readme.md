@@ -120,12 +120,12 @@ Contributors names and contact info
 
 ## Version History
 
-* (beta) 2023.04.17 beta test release
-&nbsp;&nbsp;&nbsp;&nbsp;* Single grid approach
-&nbsp;&nbsp;&nbsp;&nbsp;* Dask approach
-&nbsp;&nbsp;&nbsp;&nbsp;* Polygons id/decoding as parameter
-* ()
-    * ()
+* (beta) 2023.04.17 beta test release <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* Single grid approach <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* Dask approach <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* Polygons id/decoding as parameter <br>
+* () <br>
+    * () <br>
 
 ## License
 
