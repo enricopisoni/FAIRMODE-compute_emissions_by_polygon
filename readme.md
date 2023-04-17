@@ -1,4 +1,4 @@
-# Project Title
+# COOKIEPOLY: computing polygons' emissions starting from gridded emissions
 
 Cookiepoly is a python code to "cut" a well (geo) defined grid onto a selected administrative shape file.
 
