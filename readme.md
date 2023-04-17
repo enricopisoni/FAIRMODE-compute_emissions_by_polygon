@@ -30,12 +30,12 @@ POLYGONS <br>
 (2)Extract all the contents in a user-executable folder ($app_root) <br>
 (3)-->Follow PYTHON/CONDA ENV instructions<-- <br>
 (4)Create (or check the existence and the full permission of) $app_root/output <br>
-(5a)Change/adapt the scripts <br>
+(5)Change/adapt the scripts <br>
 &nbsp;&nbsp;&nbsp;&nbsp;(a)for windows they are in $app_root + \dev\bat\*.bat <br>
 &nbsp;&nbsp;&nbsp;&nbsp;(b)for unix they are in $app_root + /dev/sh/*.sh <br>
-(5b)Change properly $app_root value (for the scripts related to your installation Win or Unix) <br>
-(5c)Change properly $py_exec value (put exactly the full path folder of your conda/bin python3_10 executable) <br>
-(5d)Create $app_root/output/zs folder <br>
+&nbsp;&nbsp;&nbsp;&nbsp;(c)Change properly $app_root value (for the scripts related to your installation Win or Unix) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;(d)Change properly $py_exec value (put exactly the full path folder of your conda/bin python3_10 executable) <br>
+(6)Create $app_root/output/zs folder <br>
 
 
 * PYTHON/CONDA ENV
@@ -55,35 +55,35 @@ It is strongly reccomended to create a brand new compatible env. To do this, go 
 
 * EXAMPLE -1- (default mode, single ASC file)
 
-[$app_root/dev/sh/do_ASC_single.sh]
-[$app_root\dev\bat\do_ASC_single.bat]
+[$app_root/dev/sh/do_ASC_single.sh] <br>
+[$app_root\dev\bat\do_ASC_single.bat] <br>
 
-* EXAMPLE -2- (default mode, multiple ASC files in a dir)
+* EXAMPLE -2- (default mode, multiple ASC files in a dir) <br>
 
-[$app_root/dev/sh/do_ASC_folder.sh]
-[$app_root\dev\sh\do_ASC_folder.bat]
+[$app_root/dev/sh/do_ASC_folder.sh] <br>
+[$app_root\dev\sh\do_ASC_folder.bat] <br>
 
-* EXAMPLE -3- (default mode, single TIF file)
+* EXAMPLE -3- (default mode, single TIF file) <br>
 
-[$app_root/dev/sh/do_GTIFF_single.sh]
-[$app_root\dev\bat\do_GTIFF_single.bat]
+[$app_root/dev/sh/do_GTIFF_single.sh] <br>
+[$app_root\dev\bat\do_GTIFF_single.bat] <br>
 
-* EXAMPLE -4- (default mode, multiple TIF files in a dir)
+* EXAMPLE -4- (default mode, multiple TIF files in a dir) <br>
 
-[$app_root/dev/sh/do_GTIFF_folder.sh]
-[$app_root\dev\sh\do_GTIFF_folder.bat]
+[$app_root/dev/sh/do_GTIFF_folder.sh] <br>
+[$app_root\dev\sh\do_GTIFF_folder.bat] <br>
 
-* EXAMPLE -5- (default mode, to run directly the python code)
+* EXAMPLE -5- (default mode, to run directly the python code) <br>
 
 run directly in a python environent the 'main*.py' code, after having modified rows 12, 17 and 21  <br>
 These 3 rows allows to select the type of data format (asc vs gtiff) and the gridded data filenames.  <br>
 
 ## Input description
 
-(0)Put grids folder in $app_root/data/bottom_up_emissions/  <br>
-(1)Each file must contain one and only one data grid/matrix (Single year / Single pollutant / Single sector)  <br>
-(2)Format: ASC / GEOTIFF accepted <br>
-(3)FileName: Each file must follow  a name convention like this: <br>
+(1)Put grids folder in $app_root/data/bottom_up_emissions/  <br>
+(2)Each file must contain one and only one data grid/matrix (Single year / Single pollutant / Single sector)  <br>
+(3)Format: ASC / GEOTIFF accepted <br>
+(4)FileName: Each file must follow  a name convention like this: <br>
 InventoryName_IstitutionName_CountryCode_Pollutant_GNFR_ID_epsgXXXXX_year_desc.extension <br>
 #Valid file example <br>
 
@@ -91,16 +91,16 @@ InventoryName_IstitutionName_CountryCode_Pollutant_GNFR_ID_epsgXXXXX_year_desc.e
 --> CHMI_RIMM_CZ_NO2_ALL_EPSG28403_2017_MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
 Splitting we have: <br>
 --> CHMI RIMM CZ NO2 ALL EPSG28403 2017 MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
-(4) Valid Pollutant = [NO2, SO2, PM2.5, PM_coarse, PM10, VOC, NH3] <br>
-(5) Valid GNFR = [GA, GB, GC, GD, GE, GF, GI, GJ, GK, GM] <br>
+(5) Valid Pollutant = [NO2, SO2, PM2.5, PM_coarse, PM10, VOC, NH3] <br>
+(6) Valid GNFR = [GA, GB, GC, GD, GE, GF, GI, GJ, GK, GM] <br>
 
 **ENV DATA**
 
-Check the existence of the following subfolders:
-$app_root/polygons
-_NUTS_RG_01M_2021_4326
-_URAU_RG_100K_2020_4326_FUA
-_URAU_RG_100K_2021_4326_FUA
+Check the existence of the following subfolders: <br>
+$app_root/polygons <br>
+_NUTS_RG_01M_2021_4326 <br>
+_URAU_RG_100K_2020_4326_FUA <br>
+_URAU_RG_100K_2021_4326_FUA <br>
 -->Don't remove or change them<--
 
 
@@ -120,12 +120,12 @@ Contributors names and contact info
 
 ## Version History
 
-* (beta) 2023.04.17 beta test release
-&nbsp;&nbsp;&nbsp;&nbsp;* Single grid approach
-&nbsp;&nbsp;&nbsp;&nbsp;* Dask approach
-&nbsp;&nbsp;&nbsp;&nbsp;* Polygons id/decoding as parameter
-* ()
-    * ()
+* (beta) 2023.04.17 beta test release <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* Single grid approach <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* Dask approach <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* Polygons id/decoding as parameter <br>
+* () <br>
+    * () <br>
 
 ## License
 
