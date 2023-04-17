@@ -1,0 +1,29 @@
+name: fm_3_10_replica
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - mamba
+  - python=3.10
+  - xarray
+  - numpy
+  - pandas
+  - geopandas
+  - geocube
+  - pyproj
+  - rioxarray
+  - h5netcdf
+  - netcdf4
+  - rasterio
+  - xarray-spatial
+  - ipykernel
+  - ca-certificates
+  - certifi
+  - openssl
+  - cartopy
+  - rasterstats
+  - plotly
+  - hvplot
+  - distributed
+  - dask
+prefix: /storage/mariomi/conda/fm_3_10_replica
