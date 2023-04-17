@@ -86,12 +86,13 @@ These 3 rows allows to select the type of data format (asc vs gtiff) and the gri
 (3)FileName: Each file must follow  a name convention like this:
 InventoryName_IstitutionName_CountryCode_Pollutant_GNFR_ID_epsgXXXXX_year_desc.extension
 #Valid file example
-#THESE ARE ONLY TEST FILES, don't look at the name itself.
---> CHMI_RIMM_CZ_NO2_ALL_EPSG28403_2017_MAP-FILE2019-09-16b6fc2e-816.asc <--
-Splitting we have:
---> CHMI RIMM CZ NO2 ALL EPSG28403 2017 MAP-FILE2019-09-16b6fc2e-816.asc <--
-(4) Valid Pollutant = [NO2, SO2, PM2.5, PM_coarse, PM10, VOC, NH3]
-(5) Valid GNFR = [GA, GB, GC, GD, GE, GF, GI, GJ, GK, GM]
+
+#THESE ARE ONLY TEST FILES, don't look at the name itself. <br>
+--> CHMI_RIMM_CZ_NO2_ALL_EPSG28403_2017_MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
+Splitting we have: <br>
+--> CHMI RIMM CZ NO2 ALL EPSG28403 2017 MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
+(4) Valid Pollutant = [NO2, SO2, PM2.5, PM_coarse, PM10, VOC, NH3] <br>
+(5) Valid GNFR = [GA, GB, GC, GD, GE, GF, GI, GJ, GK, GM] <br>
 
 **ENV DATA**
 
