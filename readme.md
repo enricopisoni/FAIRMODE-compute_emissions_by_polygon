@@ -6,7 +6,7 @@ Cookiepoly is a python code to "cut" a well (geo) defined grid onto a selected a
 
 It tries to read the most common format:
 GRID
-	(1) netcdf (with specific a couple of specific internal organization). Useful for TOP-DOWN (but with some adaptation also fot BU)
+	(1) netcdf. Useful mainly for TOP-DOWN emission inventories
 	(2) asc (BU)
 	(3) geotiff (BU)
 POLYGONS
