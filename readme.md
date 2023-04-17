@@ -55,25 +55,25 @@ It is strongly reccomended to create a brand new compatible env. To do this, go 
 
 * EXAMPLE -1- (default mode, single ASC file)
 
-[$app_root/dev/sh/do_ASC_single.sh]
-[$app_root\dev\bat\do_ASC_single.bat]
+[$app_root/dev/sh/do_ASC_single.sh] <br>
+[$app_root\dev\bat\do_ASC_single.bat] <br>
 
-* EXAMPLE -2- (default mode, multiple ASC files in a dir)
+* EXAMPLE -2- (default mode, multiple ASC files in a dir) <br>
 
-[$app_root/dev/sh/do_ASC_folder.sh]
-[$app_root\dev\sh\do_ASC_folder.bat]
+[$app_root/dev/sh/do_ASC_folder.sh] <br>
+[$app_root\dev\sh\do_ASC_folder.bat] <br>
 
-* EXAMPLE -3- (default mode, single TIF file)
+* EXAMPLE -3- (default mode, single TIF file) <br>
 
-[$app_root/dev/sh/do_GTIFF_single.sh]
-[$app_root\dev\bat\do_GTIFF_single.bat]
+[$app_root/dev/sh/do_GTIFF_single.sh] <br>
+[$app_root\dev\bat\do_GTIFF_single.bat] <br>
 
-* EXAMPLE -4- (default mode, multiple TIF files in a dir)
+* EXAMPLE -4- (default mode, multiple TIF files in a dir) <br>
 
-[$app_root/dev/sh/do_GTIFF_folder.sh]
-[$app_root\dev\sh\do_GTIFF_folder.bat]
+[$app_root/dev/sh/do_GTIFF_folder.sh] <br>
+[$app_root\dev\sh\do_GTIFF_folder.bat] <br>
 
-* EXAMPLE -5- (default mode, to run directly the python code)
+* EXAMPLE -5- (default mode, to run directly the python code) <br>
 
 run directly in a python environent the 'main*.py' code, after having modified rows 12, 17 and 21  <br>
 These 3 rows allows to select the type of data format (asc vs gtiff) and the gridded data filenames.  <br>
@@ -96,11 +96,11 @@ Splitting we have: <br>
 
 **ENV DATA**
 
-Check the existence of the following subfolders:
-$app_root/polygons
-_NUTS_RG_01M_2021_4326
-_URAU_RG_100K_2020_4326_FUA
-_URAU_RG_100K_2021_4326_FUA
+Check the existence of the following subfolders: <br>
+$app_root/polygons <br>
+_NUTS_RG_01M_2021_4326 <br>
+_URAU_RG_100K_2020_4326_FUA <br>
+_URAU_RG_100K_2021_4326_FUA <br>
 -->Don't remove or change them<--
 
 
