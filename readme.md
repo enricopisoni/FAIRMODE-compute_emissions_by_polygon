@@ -30,12 +30,12 @@ POLYGONS <br>
 (2)Extract all the contents in a user-executable folder ($app_root) <br>
 (3)-->Follow PYTHON/CONDA ENV instructions<-- <br>
 (4)Create (or check the existence and the full permission of) $app_root/output <br>
-(5a)Change/adapt the scripts <br>
+(5)Change/adapt the scripts <br>
 &nbsp;&nbsp;&nbsp;&nbsp;(a)for windows they are in $app_root + \dev\bat\*.bat <br>
 &nbsp;&nbsp;&nbsp;&nbsp;(b)for unix they are in $app_root + /dev/sh/*.sh <br>
-(5b)Change properly $app_root value (for the scripts related to your installation Win or Unix) <br>
-(5c)Change properly $py_exec value (put exactly the full path folder of your conda/bin python3_10 executable) <br>
-(5d)Create $app_root/output/zs folder <br>
+&nbsp;&nbsp;&nbsp;&nbsp;(c)Change properly $app_root value (for the scripts related to your installation Win or Unix) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;(d)Change properly $py_exec value (put exactly the full path folder of your conda/bin python3_10 executable) <br>
+(6)Create $app_root/output/zs folder <br>
 
 
 * PYTHON/CONDA ENV
