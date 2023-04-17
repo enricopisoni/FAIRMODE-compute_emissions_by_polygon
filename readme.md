@@ -33,20 +33,21 @@ POLYGONS <br>
 (5a)Change/adapt the scripts <br>
 &nbsp;&nbsp;&nbsp;&nbsp;(a)for windows they are in $app_root + \dev\bat\*.bat <br>
 &nbsp;&nbsp;&nbsp;&nbsp;(b)for unix they are in $app_root + /dev/sh/*.sh <br>
-_(5b)Change properly $app_root value (for the scripts related to your installation Win or Unix) <br>
-(5c)Create $app_root/output/zs folder <br>
+(5b)Change properly $app_root value (for the scripts related to your installation Win or Unix) <br>
+(5c)Change properly $py_exec value (put exactly the full path folder of your conda/bin python3_10 executable) <br>
+(5d)Create $app_root/output/zs folder <br>
 
 
-PYTHON/CONDA ENV
-It is strongly reccomended to create a brand new compatible env. To do this, go to conda prompt.
+* PYTHON/CONDA ENV
 
 Requisite:
 
 _python 3.10
 _conda installation: conda https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html#starting-conda
 
-(1)Change folder to: $app_root/dev/
-(2)Type: conda env create --name fm_3_10 --file=fm_3_10.yml
+It is strongly reccomended to create a brand new compatible env. To do this, go to conda prompt. <br>
+(1)Change folder to: $app_root/dev/ <br>
+(2)Type: conda env create --name fm_3_10 --file=fm_3_10.yml <br>
 
 ## Executing program
 
@@ -81,10 +82,10 @@ These 3 rows allows to select the type of data format (asc vs gtiff) and the gri
 
 (0)Put grids folder in $app_root/data/bottom_up_emissions/  <br>
 (1)Each file must contain one and only one data grid/matrix (Single year / Single pollutant / Single sector)  <br>
-(2)Format: ASC / GEOTIFF accepted
-(3)FileName: Each file must follow  a name convention like this:
-InventoryName_IstitutionName_CountryCode_Pollutant_GNFR_ID_epsgXXXXX_year_desc.extension
-#Valid file example
+(2)Format: ASC / GEOTIFF accepted <br>
+(3)FileName: Each file must follow  a name convention like this: <br>
+InventoryName_IstitutionName_CountryCode_Pollutant_GNFR_ID_epsgXXXXX_year_desc.extension <br>
+#Valid file example <br>
 
 #THESE ARE ONLY TEST FILES, don't look at the name itself. <br>
 --> CHMI_RIMM_CZ_NO2_ALL_EPSG28403_2017_MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
