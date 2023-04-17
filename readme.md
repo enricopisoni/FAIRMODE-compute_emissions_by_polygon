@@ -80,10 +80,10 @@ These 3 rows allows to select the type of data format (asc vs gtiff) and the gri
 
 ## Input description
 
-(0)Put grids folder in $app_root/data/bottom_up_emissions/  <br>
-(1)Each file must contain one and only one data grid/matrix (Single year / Single pollutant / Single sector)  <br>
-(2)Format: ASC / GEOTIFF accepted <br>
-(3)FileName: Each file must follow  a name convention like this: <br>
+(1)Put grids folder in $app_root/data/bottom_up_emissions/  <br>
+(2)Each file must contain one and only one data grid/matrix (Single year / Single pollutant / Single sector)  <br>
+(3)Format: ASC / GEOTIFF accepted <br>
+(4)FileName: Each file must follow  a name convention like this: <br>
 InventoryName_IstitutionName_CountryCode_Pollutant_GNFR_ID_epsgXXXXX_year_desc.extension <br>
 #Valid file example <br>
 
@@ -91,8 +91,8 @@ InventoryName_IstitutionName_CountryCode_Pollutant_GNFR_ID_epsgXXXXX_year_desc.e
 --> CHMI_RIMM_CZ_NO2_ALL_EPSG28403_2017_MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
 Splitting we have: <br>
 --> CHMI RIMM CZ NO2 ALL EPSG28403 2017 MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
-(4) Valid Pollutant = [NO2, SO2, PM2.5, PM_coarse, PM10, VOC, NH3] <br>
-(5) Valid GNFR = [GA, GB, GC, GD, GE, GF, GI, GJ, GK, GM] <br>
+(5) Valid Pollutant = [NO2, SO2, PM2.5, PM_coarse, PM10, VOC, NH3] <br>
+(6) Valid GNFR = [GA, GB, GC, GD, GE, GF, GI, GJ, GK, GM] <br>
 
 **ENV DATA**
 
