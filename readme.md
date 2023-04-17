@@ -6,11 +6,11 @@ Cookiepoly is a python code to "cut" a well (geo) defined grid onto a selected a
 
 It tries to read the most common format: <br>
 GRID <br>
-	(1) netcdf (with specific a couple of specific internal organization). Useful for TOP-DOWN (but with some adaptation also fot BU) <br>
-	(2) asc (BU) <br>
-	(3) geotiff (BU) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;(1) netcdf (with specific a couple of specific internal organization). Useful for TOP-DOWN (but with some adaptation also fot BU) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;(2) asc (BU) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;(3) geotiff (BU) <br>
 POLYGONS <br>
-	(1) shp folder organization, with some specification about which code is the key <br>
+&nbsp;&nbsp;&nbsp;&nbsp;(1) shp folder organization, with some specification about which code is the key <br>
 
 
 ## Getting Started
@@ -31,8 +31,8 @@ POLYGONS <br>
 (3)-->Follow PYTHON/CONDA ENV instructions<-- <br>
 (4)Create (or check the existence and the full permission of) $app_root/output <br>
 (5)Change/adapt the scripts <br>
-	(a)for windows they are in $app_root + \dev\bat\*.bat <br>
-	(b)for unix they are in $app_root + /dev/sh/*.sh <br>
+&nbsp;&nbsp;&nbsp;&nbsp;(a)for windows they are in $app_root + \dev\bat\*.bat <br>
+&nbsp;&nbsp;&nbsp;&nbsp;(b)for unix they are in $app_root + /dev/sh/*.sh <br>
 
 	_Change properly $app_root (for the scripts related to your installation Win or Unix) <br>
 	_Change properly output
@@ -120,9 +120,9 @@ Contributors names and contact info
 ## Version History
 
 * (beta) 2023.04.17 beta test release
-    * Single grid approach
-    * Dask approach
-    * Polygons id/decoding as parameter
+&nbsp;&nbsp;&nbsp;&nbsp;* Single grid approach
+&nbsp;&nbsp;&nbsp;&nbsp;* Dask approach
+&nbsp;&nbsp;&nbsp;&nbsp;* Polygons id/decoding as parameter
 * ()
     * ()
 
