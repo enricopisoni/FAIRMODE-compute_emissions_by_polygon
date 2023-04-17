@@ -4,13 +4,13 @@ Cookiepoly is a python code to "cut" a well (geo) defined grid onto a selected a
 
 ## Description
 
-It tries to read the most common format:
-GRID
-	(1) netcdf (with specific a couple of specific internal organization). Useful for TOP-DOWN (but with some adaptation also fot BU)
-	(2) asc (BU)
-	(3) geotiff (BU)
-POLYGONS
-	(1) shp folder organization, with some specification about which code is the key
+It tries to read the most common format: <br>
+GRID <br>
+	(1) netcdf (with specific a couple of specific internal organization). Useful for TOP-DOWN (but with some adaptation also fot BU) <br>
+	(2) asc (BU) <br>
+	(3) geotiff (BU) <br>
+POLYGONS <br>
+	(1) shp folder organization, with some specification about which code is the key <br>
 
 
 ## Getting Started
@@ -26,15 +26,15 @@ POLYGONS
 * github clone
 * $app_root is your unzip folder root
 
-(1)Copy in an user-executable destination folder the file fm.zip (or the full clone from github)
-(2)Extract all the contents in a user-executable folder ($app_root)
-(3)-->Follow PYTHON/CONDA ENV instructions<--
-(4)Create (or check the existence and the full permission of) $app_root/output
-(5)Change/adapt the scripts
-	(a)for windows they are in $app_root + \dev\bat\*.bat
-	(b)for unix they are in $app_root + /dev/sh/*.sh
+(1)Copy in an user-executable destination folder the file fm.zip (or the full clone from github) <br>
+(2)Extract all the contents in a user-executable folder ($app_root) <br>
+(3)-->Follow PYTHON/CONDA ENV instructions<-- <br>
+(4)Create (or check the existence and the full permission of) $app_root/output <br>
+(5)Change/adapt the scripts <br>
+	(a)for windows they are in $app_root + \dev\bat\*.bat <br>
+	(b)for unix they are in $app_root + /dev/sh/*.sh <br>
 
-	_Change properly $app_root (for the scripts related to your installation Win or Unix)
+	_Change properly $app_root (for the scripts related to your installation Win or Unix) <br>
 	_Change properly output
 
 
@@ -75,13 +75,13 @@ _conda installation: conda https://docs.conda.io/projects/conda/en/latest/user-g
 
 * EXAMPLE -5- (default mode, to run directly the python code)
 
-run directly in a python environent the 'main*.py' code, after having modified rows 12, 17 and 21
-These 3 rows allows to select the type of data format (asc vs gtiff) and the gridded data filenames.
+run directly in a python environent the 'main*.py' code, after having modified rows 12, 17 and 21  <br>
+These 3 rows allows to select the type of data format (asc vs gtiff) and the gridded data filenames.  <br>
 
 ## Input description
 
 (0)Put grids folder in $app_root/data/bottom_up_emissions/
-(1)Each file must contain one and only one data grid/matrix (Single year / Single pollutant / Single sector)
+(1)Each file must contain one and only one data grid/matrix (Single year / Single pollutant / Single sector)  <br>
 (2)Format: ASC / GEOTIFF accepted
 (3)FileName: Each file must follow  a name convention like this:
 InventoryName_IstitutionName_CountryCode_Pollutant_GNFR_ID_epsgXXXXX_year_desc.extension
