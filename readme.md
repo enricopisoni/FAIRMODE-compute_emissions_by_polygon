@@ -93,27 +93,10 @@ InventoryName_IstitutionName_CountryCode_Pollutant_GNFR_ID_epsgXXXXX_year_desc.e
 --> CHMI_RIMM_CZ_NO2_ALL_EPSG28403_2017_MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
 Splitting we have: <br>
 --> CHMI RIMM CZ NO2 ALL EPSG28403 2017 MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
-(5) Valid Pollutant = [NO2, SO2, PM2.5, PM_coarse, PM10, VOC, NH3] <br>
-(6) Valid GNFR = [GAB, GC, GD, GE, GF, GHI, GKL, GR] <br>
-
-
-## Input description
-
-(1)Put grids folder in $app_root/data/bottom_up_emissions/  <br>
-(2)Each file must contain one and only one data grid/matrix (Single year / Single pollutant / Single sector)  <br>
-(3)Format: ASC / GEOTIFF accepted <br>
-(4)FileName: Each file must follow  a name convention like this: <br>
-InventoryName_IstitutionName_CountryCode_Pollutant_GNFR_ID_epsgXXXXX_year_desc.extension <br>
-#Valid file example <br>
-
-#THESE ARE ONLY TEST FILES, don't look at the name itself. <br>
---> CHMI_RIMM_CZ_NO2_ALL_EPSG28403_2017_MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
-Splitting we have: <br>
---> CHMI RIMM CZ NO2 ALL EPSG28403 2017 MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
 (5) Valid Pollutant = [NOX, SO2, PM2.5, PM10, NMVOC, NH3] <br>
 
 
-| Code Name | Description | Includede Sectors |
+| Code Name | Description | Included Sectors |
 |--------------|-----------|------------|
 | NOX | NOx      | ...        |
 | NMVOC      | NMVOC   | ...       |
@@ -122,7 +105,7 @@ Splitting we have: <br>
 |  PM2.5     | PM2.5   | ...       |
 | PM10     | PM10   | ...       |
 
-(6) Valid GNFR = [GF, GB, GC, GD, GE, GF, GI, GJ, GK, GM] <br>
+(6) Valid GNFR = [GF, GC, GKL, GAB, GG, GE, GD, GHI, GJ] <br>
 
 Traffic (GNFR F), commercial and residential (GNFR C), agriculture (GNFR K + L), industry (GNFR A + B), shipping (GNFR G), Solvents (GNFR E), Fugitive (GNFR D), Off-road (GNFR I + H), Waste (GNFR J)
 
@@ -137,6 +120,7 @@ Traffic (GNFR F), commercial and residential (GNFR C), agriculture (GNFR K + L),
 | GD    | Fugitive   | GNFR D       |
 | GHI    | Off-road   | GNFR I + H       |
 | GJ     | Off-road   | GNFR J       |
+
 
 ## Output description
 
