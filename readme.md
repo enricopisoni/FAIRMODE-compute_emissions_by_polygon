@@ -119,7 +119,7 @@ Traffic (GNFR F), commercial and residential (GNFR C), agriculture (GNFR K + L),
 | GE     | Solvents   | GNFR E       |
 | GD    | Fugitive   | GNFR D       |
 | GHI    | Off-road   | GNFR I + H       |
-| GJ     | Off-road   | GNFR J       |
+| GJ     | Waste   | GNFR J       |
 
 
 ## Output description
