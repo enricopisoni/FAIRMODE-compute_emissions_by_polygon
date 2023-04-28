@@ -17,6 +17,12 @@ from pyproj import CRS
 from shapely.geometry import box
 #from multiprocessing import Pool
 
+# TODO if the grid is huge there would be the necessity to limit the extent
+# TODO: remove extra columns (as described in readme file)
+# TODO: force specific pollutant name and GNFR (look at the readme)
+# TODO: display a warning if some combination of polluttant/sector is missing, afetyr this check do the following
+# TODO: ... as final option: merge global csv in a single file
+
 admin_file = []
 admin_file.append('NUTS_RG_01M_2021_4326')
 admin_file.append('URAU_RG_100K_2020_4326_FUA')
@@ -946,7 +952,7 @@ def main(
     #print(admin_type_col, admin_type_val, len(admin_lvl))
 
     # limit the administrative boundaries to the extent of the grid
-    # TODO if the grid is huge there would be the necessity to limit the extent
+    
     '''
     lon_min = (lon[0] - hlf_res).round(3)
     lat_min = (lat[0] - hlf_res).round(3)
