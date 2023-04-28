@@ -78,7 +78,7 @@ It is strongly reccomended to create a brand new compatible env. To do this, go 
 run directly in a python environent the 'main*.py' code, after having modified rows 12, 17 and 21  <br>
 These 3 rows allows to select the type of data format (asc vs gtiff) and the gridded data filenames.  <br>
 
-Relevant parameter in the script file is the measure unit conversio (put the "to kTons" factor)
+Relevant parameter in the script file is the measure unit conversion (put the "to kTons" factor as described in all the examples)
 
 ## Input description
 
@@ -96,7 +96,7 @@ Splitting we have: <br>
 (5) Valid Pollutant = [NOX, SO2, PM2.5, PM10, NMVOC, NH3] <br>
 
 
-| Code Name | Description | Included Sectors |
+| Code Name | Description | Info |
 |--------------|-----------|------------|
 | NOX | NOx      | ...        |
 | NMVOC      | NMVOC   | ...       |
@@ -111,20 +111,22 @@ Traffic (GNFR F), commercial and residential (GNFR C), agriculture (GNFR K + L),
 
 | Code Name | Description | Included Sectors |
 |--------------|-----------|------------|
-| GF | Traffic      | GNFR F        |
-| GC      | commercial and residential   | GNFR C       |
-| GKL     | agriculture   | GNFR K + L      |
-| GAB      | industry   | GNFR A + B       |
-| GG     | shipping   | GNFR G       |
-| GE     | Solvents   | GNFR E       |
-| GD    | Fugitive   | GNFR D       |
-| GHI    | Off-road   | GNFR I + H       |
-| GJ     | Waste   | GNFR J       |
+| GNFRF | Traffic      | GNFR F        |
+| GNFRC      | commercial and residential   | GNFR C       |
+| GNFRKL     | agriculture   | GNFR K + L      |
+| GNFRAB      | industry   | GNFR A + B       |
+| GNFRG     | shipping   | GNFR G       |
+| GNFRE     | Solvents   | GNFR E       |
+| GNFRD    | Fugitive   | GNFR D       |
+| GNFRHI    | Off-road   | GNFR I + H       |
+| GNFRJ     | Waste   | GNFR J       |
 
 
 ## Output description
 
-(1)TBD
+The output must have at least the following columns. Other fields are considered as optional information.
+
+| NUTS_ID // FUA_ID    | CNTR_CODE   | NAME_LATN    | POLLUTANT   | YEAR  | SECTOR   | EMIS(kTons)  |
 
 **ENV DATA**
 
