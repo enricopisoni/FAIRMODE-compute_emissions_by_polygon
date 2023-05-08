@@ -112,10 +112,10 @@ Traffic (GNFR F), commercial and residential (GNFR C), agriculture (GNFR K + L),
 | Code Name | Description | Included Sectors |
 |--------------|-----------|------------|
 | GNFRF | Traffic      | GNFR F        |
-| GNFRC      | commercial and residential   | GNFR C       |
-| GNFRKL     | agriculture   | GNFR K + L      |
-| GNFRAB      | industry   | GNFR A + B       |
-| GNFRG     | shipping   | GNFR G       |
+| GNFRC      | Commercial and Residential   | GNFR C       |
+| GNFRKL     | Agriculture   | GNFR K + L      |
+| GNFRAB      | Industry   | GNFR A + B       |
+| GNFRG     | Shipping   | GNFR G       |
 | GNFRE     | Solvents   | GNFR E       |
 | GNFRD    | Fugitive   | GNFR D       |
 | GNFRHI    | Off-road   | GNFR I + H       |
