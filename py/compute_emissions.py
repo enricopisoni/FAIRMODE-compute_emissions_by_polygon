@@ -2,7 +2,6 @@ import os
 import sys
 import warnings
 from time import time
-from glob import glob
 
 import dask
 import geopandas as gpd
@@ -15,32 +14,19 @@ from dask.distributed import Client, LocalCluster
 from geocube.api.core import make_geocube
 from pyproj import CRS
 from shapely.geometry import box
+
+import fairmode_parameters
+from fairmode_parameters import build_out as build_out
+
+
 #from multiprocessing import Pool
 
 # TODO if the grid is huge there would be the necessity to limit the extent
 # TODO: remove extra columns (as described in readme file)
 # TODO: force specific pollutant name and GNFR (look at the readme)
-# TODO: display a warning if some combination of polluttant/sector is missing, afetyr this check do the following
+# Done: display a warning if some combination of polluttant/sector is missing, after this check do the following
 # TODO: ... as final option: merge global csv in a single file
 
-admin_file = []
-admin_file.append('NUTS_RG_01M_2021_4326')
-admin_file.append('URAU_RG_100K_2020_4326_FUA')
-admin_file.append('URAU_RG_100K_2021_4326_FUA')
-#admin_file.append('URAU_RG_100K_2020_4326_CITIES')
-#admin_file.append('URAU_RG_100K_2021_4326_CITIES')
-
-#admin_col=["LEVL_CODE","URAU_CATG","URAU_CATG", "URAU_CATG", "URAU_CATG"]
-admin_col=["LEVL_CODE","URAU_CATG","URAU_CATG"]
-#admin_val=["3","F","F","C","C"]
-admin_val=["3","F","F"]
-#admin_id=["NUTS_ID","URAU_CODE","URAU_CODE","URAU_CODE","URAU_CODE"]
-admin_id=["NUTS_ID","URAU_CODE","URAU_CODE"]
-
-res_path = []
-res_path.append('2021_NUTSLV3')
-res_path.append('2020_FUA')
-res_path.append('2021_FUA')
 #res_path.append('2020_CTS')
 #res_path.append('2021_CTS')
 
@@ -52,6 +38,12 @@ def run_manually(app_root, grid, out, grid_type, to_tons_factor):
     client = Client(cluster)
 
     print(client.dashboard_link)
+    admin_file = fairmode_parameters.get_admin_file()
+    admin_col =  fairmode_parameters.get_admin_col()
+    admin_val = fairmode_parameters.get_admin_val()
+    admin_id = fairmode_parameters.get_admin_id()
+    filter_condition = fairmode_parameters.get_filter_condition()
+    admin_class = fairmode_parameters.get_admin_id_class()
 
     for i, admin in enumerate(admin_file):
 
@@ -59,26 +51,21 @@ def run_manually(app_root, grid, out, grid_type, to_tons_factor):
         print(admin)
 
         zones = build_zones(app_root, admin)
-
         print('build_zones(admin)', zones)
-
         print('build_out(res_path[i])', out)
-
         print('admin_col[i]', admin_col[i])
-
         print('admin_val[i]', admin_val[i])
-
         print('admin_type_col[i]', admin_id[i])
+        print('filter_condition[i]', filter_condition[i])
+        print('admin_class[i]', admin_class[i])
 
         main(zones, grid, client, out, grid_type=grid_type,
-
-             admin_type_col=admin_col[i], admin_type_val=admin_val[i], admin_id=admin_id[i], to_tons_factor=to_tons_factor)
+             admin_type_col=admin_col[i], admin_type_val=admin_val[i], admin_id=admin_id[i],
+             filter_condition=filter_condition[i], admin_class=admin_class[i], to_tons_factor=to_tons_factor)
 
     #sys.exit(0)
     print('...main finished')
-
     print("DASK client shutdown")
-
     client.shutdown()
 
 def build_zones(app_root,admin_file):
@@ -88,14 +75,6 @@ def build_zones(app_root,admin_file):
     zones = os.path.join(zones, admin_file+'.shp')
     return zones
 
-
-def build_out(app_root,res_path):
-    full_res_path = os.path.join(app_root, 'data')
-    full_res_path = os.path.join(full_res_path, 'output')
-    full_res_path = os.path.join(full_res_path, 'zs')
-    #Add a separator
-    full_res_path = os.path.join(full_res_path, res_path+'_')
-    return full_res_path
 
 def __bbox_creator(coords):
     '''
@@ -201,7 +180,7 @@ def do_CAMS(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor):
             # spec_gdf[sector] = np.round(val, 4)
             # spec_gdf[["pollutant", "year"]] = pollutant, int(yr)
             # sector as key version
-            spec_gdf[['pollutant', 'year', 'sector', 'emis']] = pollutant, int(yr), sector, np.round(val, 11)
+            spec_gdf[['POLLUTANT', 'YEAR', 'GNF_SECTOR', 'EMIS(kTons)']] = pollutant, int(yr), sector, np.round(val, 11)
             stats = pd.concat([stats, spec_gdf], axis=0)
         # move this inside the cycle
         # stats = pd.concat([stats, spec_gdf], axis=0)
@@ -261,7 +240,7 @@ def do_GTIFF(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor, year
             # spec_gdf[sector] = np.round(val, 4)
             # spec_gdf[["pollutant", "year"]] = pollutant, int(yr)
             # sector as key version
-            spec_gdf[['pollutant', 'year', 'sector', 'emis']] = pollutant, int(year), sect_id, np.round(val, 11)
+            spec_gdf[['POLLUTANT', 'YEAR', 'GNF_SECTOR', 'EMIS(kTons)']] = pollutant, int(year), sect_id, np.round(val, 11)
             stats = pd.concat([stats, spec_gdf], axis=0)
             # print('... sector done')
             print(dataset, '... single admin done-->', stats)
@@ -327,7 +306,7 @@ def do_ASC(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor, year, 
             # spec_gdf[sector] = np.round(val, 4)
             # spec_gdf[["pollutant", "year"]] = pollutant, int(yr)
             # sector as key version
-            spec_gdf[['pollutant', 'year', 'sector', 'emis']] = pollutant, int(year), sect_id, np.round(val, 11)
+            spec_gdf[['POLLUTANT', 'YEAR', 'GNF_SECTOR', 'EMIS(kTons)']] = pollutant, int(year), sect_id, np.round(val, 11)
             stats = pd.concat([stats, spec_gdf], axis=0)
             # print('... sector done')
             print(dataset, '... single admin done-->', stats)
@@ -380,7 +359,7 @@ def do_EMEP(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor):
             # spec_gdf[sector] = np.round(val, 4)
             # spec_gdf[["pollutant", "year"]] = pollutant, int(yr)
             # sector as key version
-            spec_gdf[['pollutant', 'year', 'sector', 'emis']] = pollutant, int(yr), sector, np.round(val, 4)
+            spec_gdf[['POLLUTANT', 'YEAR', 'GNF_SECTOR', 'EMIS(kTons)']] = pollutant, int(yr), sector, np.round(val, 4)
             stats = pd.concat([stats, spec_gdf], axis=0)
         # move this inside the cycle
         # stats = pd.concat([stats, spec_gdf], axis=0)
@@ -463,7 +442,7 @@ def do_EMEP_split(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor)
             # spec_gdf[sector] = np.round(val, 4)
             # spec_gdf[["pollutant", "year"]] = pollutant, int(yr)
             # sector as key version
-            spec_gdf[['pollutant', 'year', 'sector', 'emis']] = pollutant, int(year), sect_name, np.round(val, 11)
+            spec_gdf[['POLLUTANT', 'YEAR', 'GNF_SECTOR', 'EMIS(kTons)']] = pollutant, int(year), sect_name, np.round(val, 11)
             #if val > 0.00001:
             #    print(year, sect, val)
             stats = pd.concat([stats, spec_gdf], axis=0)
@@ -756,7 +735,9 @@ def main(
     grid_type = 'generic',
     admin_type_col = "LEVL_CODE",
     admin_type_val = "3",
-    admin_id="NUTS_ID",
+    admin_id = "",
+    filter_condition = "",
+    admin_class = "",
     to_tons_factor=1.,
     workers_no=1,
 ):
@@ -809,19 +790,17 @@ def main(
         #CEMAP_myInventory_BEL_PM10_S7_EPSG3447_2012_raster.asc
         #CEMAP_anyName_BEL_PM10_S10_EPSG3447_2012.tif
         try:
-            model_name1, model_name2, country, pollutant_nm, sect_id, epsg, year, desc = os.path.basename(
+            model, institution, country, pollutant_nm, sect_id, epsg, year, desc = os.path.basename(
                 selected_grid).split("_")
         except ValueError:
             print('Try different split')
-            model_name1, model_name2, country, pollutant_nm, sect_id, epsg, year, desc = os.path.basename(
+            model, institution, country, pollutant_nm, sect_id, epsg, year, desc = os.path.basename(
                 selected_grid).split("_")
-        model = model_name1 + model_name2
         area = country
-        resolution = sect_id
-        origin = year
-        print('model_name1, model_name2, country, pollutant_nm, sect_id, epsg, year, desc')
-        print(model_name1, model_name2, country, pollutant_nm, sect_id, epsg, year, desc)
+        print('model, institution, country, pollutant_nm, sect_id, epsg, year, desc')
+        print(model, institution, country, pollutant_nm, sect_id, epsg, year, desc)
         grid_crs = int(epsg[4:len(epsg)])
+        single_file = True
         #print(grid_crs)
     elif grid_type == 'ASC':
         #SOx_2021_GRID_2000_to_2019
@@ -830,19 +809,17 @@ def main(
         #CEMAP_myInventory_BEL_PM10_S7_EPSG3447_2012_raster.asc
         #CEMAP_anyName_BEL_PM10_S10_EPSG3447_2012.tif
         try:
-            model_name1, model_name2, country, pollutant_nm, sect_id, epsg, year, desc = os.path.basename(
+            model, institution, country, pollutant_nm, sect_id, epsg, year, desc = os.path.basename(
                 selected_grid).split("_")
         except ValueError:
             print('Try different split')
-            model_name1, model_name2, country, pollutant_nm, sect_id, epsg, year, desc = os.path.basename(
+            model, institution, country, pollutant_nm, sect_id, epsg, year, desc = os.path.basename(
                 selected_grid).split("_")
-        model = model_name1 + model_name2
         area = country
-        resolution = sect_id
-        origin = year
-        print('model_name1, model_name2, country, pollutant_nm, sect_id, epsg, year, desc')
-        print(model_name1, model_name2, country, pollutant_nm, sect_id, epsg, year, desc)
+        print('model, institution, country, pollutant_nm, sect_id, epsg, year, desc')
+        print(model, institution, country, pollutant_nm, sect_id, epsg, year, desc)
         grid_crs = int(epsg[4:len(epsg)])
+        single_file = True
         #epsg_num=epsg[4:len(epsg)]
         #from osgeo import gdal
 
@@ -852,10 +829,17 @@ def main(
         print(grid_crs)
 
     # Check existence
-    out_name = f"{out_folder}{model}_{resolution}_{origin}_{pollutant_nm}.csv"
-    print(out_name)
-    if os.path.exists(out_name):
-        print('File still there or not valid admin entity, skip', out_name)
+    # MM: add poly/admin type in the csv filename, maintain single output folder
+    if single_file:
+        out_file = os.path.join(out_folder, f"{model}_{institution}_{sect_id}_{pollutant_nm}_{admin_class}.csv")
+    else:
+        out_file = os.path.join(out_folder, f"{model}_{resolution}_{origin}_{pollutant_nm}_{admin_class}.csv")
+    #out_file = f"{out_folder}{model}_{resolution}_{origin}_{pollutant_nm}_{admin_class}.csv"
+    print(out_file)
+    #sys.exit()
+    if os.path.exists(out_file):
+        print('Skip, file still there or not valid admin entity \n')
+        print('(if you want to replace result, delete the file manually): ', out_file)
         #print("DASK client shutdown")
         #client.shutdown()
         return 0
@@ -949,6 +933,20 @@ def main(
         admin_lvl = admin_gdf[admin_gdf[admin_type_col] == int(admin_type_val)]
         #print('admin_lvl.shape', admin_lvl.shape)
 
+    # only two (exclusive) types of filter: select-only (== condition) or exclude (!= condition) a specific value
+    print(admin_lvl)
+    if filter_condition != "":
+        filter_col, filter_check, filter_value = filter_condition.split(" ")
+        print('filter_col, filter_check, filter_value')
+        print(filter_col, filter_check, filter_value)
+        if filter_check == '==':
+            admin_lvl = admin_lvl[admin_lvl[filter_col] == filter_value]
+            print('== -->', admin_lvl)
+        elif filter_check == '!=':
+            admin_lvl = admin_lvl[admin_lvl[filter_col] != filter_value]
+            print('!= -->', admin_lvl)
+    else:
+        print('no (valid) filter specified, do nothing and get all values...')
     #print(admin_type_col, admin_type_val, len(admin_lvl))
 
     # limit the administrative boundaries to the extent of the grid
@@ -989,56 +987,103 @@ def main(
     #print('touched_cells.shape', touched_cells.shape)
 
     # union cells and admin boundary
-    admin_union = touched_cells.overlay(
-        admin_aoi, how="union", keep_geom_type=True, make_valid=True
-    )
-    print("\r\nIntersection and union completed")
+    try:
+        admin_union = touched_cells.overlay(
+            admin_aoi, how="union", keep_geom_type=True, make_valid=True
+        )
 
-    # compute the percentage in respect to the entire cell area
-    admin_union["perc"] = np.round(
-        (admin_union.geometry.area / admin_union["orig_area"]), 3
-    )
-    admin_union.loc[admin_union["OID"].isnull(), "perc"] = 1
+        print("\r\nIntersection and union completed")
 
-    delayed_regions = []
+        # compute the percentage in respect to the entire cell area
+        admin_union["perc"] = np.round(
+            (admin_union.geometry.area / admin_union["orig_area"]), 3
+        )
+        admin_union.loc[admin_union["OID"].isnull(), "perc"] = 1
 
-    # scatter data that would too big
-    cells_s = client.scatter(cells)
-    pollutant_xds_s = client.scatter(pollutant_xds)
+        delayed_regions = []
 
-    # Loops over the UTS
-    print('Build dask stuff...')
-    '''
-    source_lon = lon
-    source_lat = lat
-    x_res = (source_lon[-1] - source_lon[0]) / source_lon.shape[0]
-    y_res = (source_lat[-1] - source_lat[0]) / source_lat.shape[0]
+        # scatter data that would too big
+        cells_s = client.scatter(cells)
+        pollutant_xds_s = client.scatter(pollutant_xds)
 
-    new_lon = np.arange(source_lon[0], source_lon[-1], x_res)  #
-    new_lat = np.arange(source_lat[0], source_lat[-1], y_res)  #
+        # Loops over the UTS
+        print('Build dask stuff...')
+        '''
+        source_lon = lon
+        source_lat = lat
+        x_res = (source_lon[-1] - source_lon[0]) / source_lon.shape[0]
+        y_res = (source_lat[-1] - source_lat[0]) / source_lat.shape[0]
+    
+        new_lon = np.arange(source_lon[0], source_lon[-1], x_res)  #
+        new_lat = np.arange(source_lat[0], source_lat[-1], y_res)  #
+    
+        print(source_lon[0], source_lon[-1])
+        print(new_lon[0], new_lon[-1])
+    
+        print(source_lat[0], source_lat[-1])
+        print(new_lat[0], new_lat[-1])
+    
+        print(new_lon[1] - new_lon[0], new_lat[1] - new_lat[0])
+        print(x_res, y_res)
+    
+        print(source_lon.shape, source_lon.shape)
+        print(new_lon.shape, new_lat.shape)
+        '''
 
-    print(source_lon[0], source_lon[-1])
-    print(new_lon[0], new_lon[-1])
+        do_dask = True
+        if do_dask:
+            for i in admin_aoi[admin_id]:
+                i_admin_aoi = admin_aoi.loc[admin_aoi[admin_id] == i].copy()
+                i_admin_union = admin_union.loc[admin_union[admin_id] == i]
 
-    print(source_lat[0], source_lat[-1])
-    print(new_lat[0], new_lat[-1])
+                # TODO over a distributed platform would be better to pass only the path
+                delayed_regions.append(
+                    __statistics(
+                        i_admin_union,
+                        cells_s,
+                        pollutant_xds_s,
+                        i_admin_aoi,
+                        geo_crs,
+                        pollutant_nm,
+                        grid_type,
+                        to_tons_factor,
+                        year = year,
+                        sect_id = sect_id,
+                    )
+                )
+            print(
+                f"\r\nData are ready to be analyzed.\n "
+                f"Please follow the evolution here: {client.dashboard_link}"
+            )
+            regions_statistics = dask.compute(*delayed_regions)
+            print("... dask done")
 
-    print(new_lon[1] - new_lon[0], new_lat[1] - new_lat[0])
-    print(x_res, y_res)
-
-    print(source_lon.shape, source_lon.shape)
-    print(new_lon.shape, new_lat.shape)
-    '''
-
-    do_dask = True
-    if do_dask:
-        for i in admin_aoi[admin_id]:
-            i_admin_aoi = admin_aoi.loc[admin_aoi[admin_id] == i].copy()
-            i_admin_union = admin_union.loc[admin_union[admin_id] == i]
-
-            # TODO over a distributed platform would be better to pass only the path
-            delayed_regions.append(
-                __statistics(
+            # Re aggregate data
+            print("aggregate & clean...")
+            temp = list(regions_statistics)
+            for i in range(len(temp) - 1, 0, -1):
+                if temp[i].empty:
+                    del temp[i]
+            regions_statistics = tuple(temp)
+            '''
+            regions_gdf = gpd.GeoDataFrame(
+                pd.concat(regions_statistics), crs=regions_statistics[0].crs
+            )
+            '''
+            regions_gdf = gpd.GeoDataFrame(
+                pd.concat(regions_statistics)
+            )
+            print("... aggregate & clean done")
+            # put everything in a single file do not split between year...
+            #regions_gdf.to_file(
+            #        f"/eos/jeodpp/data/projects/FAIRMODE/data/output/pm/{model}_{resolution}_{origin}_{pollutant_nm}.shp"
+            #    )
+        else:
+            #TODO: implement without dusk (check performance if sequential...)
+            for i in admin_aoi[admin_id]:
+                i_admin_aoi = admin_aoi.loc[admin_aoi[admin_id] == i].copy()
+                i_admin_union = admin_union.loc[admin_union[admin_id] == i]
+                region_statistics = __seq_statistics(
                     i_admin_union,
                     cells_s,
                     pollutant_xds_s,
@@ -1047,87 +1092,55 @@ def main(
                     pollutant_nm,
                     grid_type,
                     to_tons_factor,
-                    year = year,
-                    sect_id = sect_id,
+                    year=year,
+                    sect_id=sect_id,
                 )
-            )
-        print(
-            f"\r\nData are ready to be analyzed.\n "
-            f"Please follow the evolution here: {client.dashboard_link}"
-        )
-        regions_statistics = dask.compute(*delayed_regions)
-        print("... dask done")
+                #print('-->', region_statistics)
+                '''
+                regions_gdf = gpd.GeoDataFrame(
+                    pd.concat(region_statistics), crs=region_statistics[0].crs
+                )
+                '''
 
-        # Re aggregate data
-        print("aggregate & clean...")
-        temp = list(regions_statistics)
-        for i in range(len(temp) - 1, 0, -1):
-            if temp[i].empty:
-                del temp[i]
-        regions_statistics = tuple(temp)
-        '''
-        regions_gdf = gpd.GeoDataFrame(
-            pd.concat(regions_statistics), crs=regions_statistics[0].crs
-        )
-        '''
-        regions_gdf = gpd.GeoDataFrame(
-            pd.concat(regions_statistics)
-        )
-        print("... aggregate & clean done")
-        # put everything in a single file do not split between year...
-        #regions_gdf.to_file(
-        #        f"/eos/jeodpp/data/projects/FAIRMODE/data/output/pm/{model}_{resolution}_{origin}_{pollutant_nm}.shp"
-        #    )
-    else:
-        #TODO: implement without dusk (check performance if sequential...)
-        for i in admin_aoi[admin_id]:
-            i_admin_aoi = admin_aoi.loc[admin_aoi[admin_id] == i].copy()
-            i_admin_union = admin_union.loc[admin_union[admin_id] == i]
-            region_statistics = __seq_statistics(
-                i_admin_union,
-                cells_s,
-                pollutant_xds_s,
-                i_admin_aoi,
-                geo_crs,
-                pollutant_nm,
-                grid_type,
-                to_tons_factor,
-                year=year,
-                sect_id=sect_id,
-            )
-            #print('-->', region_statistics)
-            '''
-            regions_gdf = gpd.GeoDataFrame(
-                pd.concat(region_statistics), crs=region_statistics[0].crs
-            )
-            '''
 
-    lighter_ver = regions_gdf.drop(columns = ['geometry'])
-    out_file = f"{out_folder}{model}_{resolution}_{origin}_{pollutant_nm}.csv"
-    print('writing...', out_file)
-    lighter_ver.to_csv(
-            out_file
-        )
-    print('... writing done')
-    '''
-    lighter_ver.to_csv(
-            f"/eos/jeodpp/data/projects/FAIRMODE/data/output/pm/{model}_{resolution}_{origin}_{pollutant_nm}.csv"
-        )
-    # loops over single years and save each of them on a single shape file
-    for yr in regions_gdf["year"].unique():
-        yearly_stat = regions_gdf.loc[regions_gdf["year"] == yr]
-        #yearly_stat.to_file(
-        #    f"./Data/{model}_{resolution}_{origin}_{pollutant_nm}_{yr}.shp"
-        #)
-        yearly_stat.to_file(
-            f"/eos/jeodpp/data/projects/FAIRMODE/data/output/pm/{model}_{resolution}_{origin}_{pollutant_nm}_{yr}.shp"
-        )
-        lighter_ver = yearly_stat.drop(columns = ['geometry'])
+        lighter_ver = regions_gdf.drop(columns=['geometry'])
+        drop_cols = ['CITY_CPTL', 'URAU_CATG', 'AREA_SQM', 'FID', 'IUID', 'NUTS3_2021', 'URAU_CATG',
+                     'LEVL_CODE', 'MOUNT_TYPE', 'URBN_TYPE', 'COAST_TYPE', 'FUA_CODE', 'CITY_KERN']
+
+        for drop_col in drop_cols:
+            try:
+                lighter_ver = lighter_ver.drop(columns = [drop_col])
+                print('-->', drop_col, 'dropped <--')
+            except:
+                print('-->', drop_col, 'skipped <--')
+                continue
+
+        print('writing...', out_file)
         lighter_ver.to_csv(
-            f"/eos/jeodpp/data/projects/FAIRMODE/data/output/pm/{model}_{resolution}_{origin}_{pollutant_nm}_{yr}.csv"
-        )
-     '''
-        
+                out_file
+            )
+        print('... writing done')
+        '''
+        lighter_ver.to_csv(
+                f"/eos/jeodpp/data/projects/FAIRMODE/data/output/pm/{model}_{resolution}_{origin}_{pollutant_nm}.csv"
+            )
+        # loops over single years and save each of them on a single shape file
+        for yr in regions_gdf["year"].unique():
+            yearly_stat = regions_gdf.loc[regions_gdf["year"] == yr]
+            #yearly_stat.to_file(
+            #    f"./Data/{model}_{resolution}_{origin}_{pollutant_nm}_{yr}.shp"
+            #)
+            yearly_stat.to_file(
+                f"/eos/jeodpp/data/projects/FAIRMODE/data/output/pm/{model}_{resolution}_{origin}_{pollutant_nm}_{yr}.shp"
+            )
+            lighter_ver = yearly_stat.drop(columns = ['geometry'])
+            lighter_ver.to_csv(
+                f"/eos/jeodpp/data/projects/FAIRMODE/data/output/pm/{model}_{resolution}_{origin}_{pollutant_nm}_{yr}.csv"
+            )
+         '''
+    except Exception as e:
+        print(e)
+        print('no intersections, skip')
 
     print("**Task end**")
 
@@ -1139,8 +1152,14 @@ if __name__ == "__main__":
 
     workers_no = 1
     print('arg #:', len(sys.argv))
+    print('arg list', sys.argv)
+    run_std_mode = False
+    run_adv_mode = False
+    merge_mode = False
+
     #sys.exit(0)
-    if len(sys.argv) == 11:
+    if len(sys.argv) == 13:
+        print('run_std_mode')
         zones = sys.argv[1]
         grid = sys.argv[2]
         grid_type = sys.argv[3]
@@ -1148,21 +1167,32 @@ if __name__ == "__main__":
         admin_type_col = sys.argv[5]
         admin_type_val = sys.argv[6]
         admin_id = sys.argv[7]
-        to_tons_factor = float(sys.argv[8])
-        workers_no = int(sys.argv[9])
-        adv_mode = True
+        admin_type_val = sys.argv[8]
+        admin_id = sys.argv[9]
+        to_tons_factor = float(sys.argv[10])
+        workers_no = int(sys.argv[11])
+        run_adv_mode = True
         print('zones, grid, grid_type, out, admin_type_col, admin_type_val,to_tons_factor')
-        print(zones, grid, grid_type, out, admin_type_col, admin_type_val, to_tons_factor)
+        print(zones, grid, grid_type, out,
+              admin_type_col, admin_type_val, to_tons_factor)
     elif len(sys.argv) == 6:
+        print('run_adv_mode')
         app_root = sys.argv[1]
         grid = sys.argv[2]
         grid_type = sys.argv[3]
         to_tons_factor = float(sys.argv[4])
+        #print('app_root, grid, grid_type, to_tons_factor')
+        #print(app_root, grid, grid_type, to_tons_factor)
         workers_no = int(sys.argv[5])
-        adv_mode = False
-        print('app_root, grid, grid_type, to_tons_factor')
-        print(app_root, grid, grid_type, to_tons_factor)
+        run_std_mode = True
+        print('app_root, grid, grid_type, to_tons_factor, workers_no')
+        print(app_root, grid, grid_type, to_tons_factor, workers_no)
         #sys.exit(0)
+    elif sys.argv == 3:
+        print('merge_mode')
+        result_path = sys.argv[1]
+        merge_target_path = sys.argv[2]
+        merge_mode=True
 
     warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -1186,30 +1216,48 @@ if __name__ == "__main__":
     print(client.dashboard_link)
 
     try:
-
-        if adv_mode:
-            # put here explicitly a singl input combination
-            main(zones, grid, client, out, grid_type=grid_type, admin_type_col=admin_type_col, admin_type_val=admin_type_val, admin_id=admin_id, to_tons_factor=to_tons_factor)
+        if merge_mode:
+            if fairmode_parameters.check_missing_poll_sect_combination(out):
+                fairmode_parameters.merge_all(out, merge_target_path)
         else:
-            # build "standard" admin list an iterate on them
-            print(admin_file)
-            for i, admin in enumerate(admin_file):
-                #build zone full file
-                print(admin)
-                zones = build_zones(app_root, admin)
-                out = build_out(app_root, res_path[i])
-                print('build_zones(admin)', zones)
-                print('build_out(res_path[i])', out)
-                print('admin_col[i]', admin_col[i])
-                print('admin_val[i]', admin_val[i])
-                print('admin_type_col[i]', admin_id[i])
-                main(zones, grid, client, out, grid_type=grid_type,
-                     admin_type_col=admin_col[i], admin_type_val=admin_val[i], admin_id=admin_id[i], to_tons_factor=to_tons_factor)
-            #sys.exit(0)
-        print('...main finished')
-        print("DASK client shutdown")
-        client.shutdown()
-        #main(zones, pollutant, client)
+
+            if run_adv_mode:
+                # put here explicitly a singl input combination
+                main(zones, grid, client, out, grid_type=grid_type, admin_type_col=admin_type_col,
+                     admin_type_val=admin_type_val, admin_id=admin_id,
+                     filter_condition=filter_condition, admin_class=admin_class, to_tons_factor=to_tons_factor)
+            if run_std_mode:
+                # build "standard" admin list an iterate on them
+                admin_file = fairmode_parameters.get_admin_file()
+                admin_col = fairmode_parameters.get_admin_col()
+                admin_val = fairmode_parameters.get_admin_val()
+                admin_id = fairmode_parameters.get_admin_id()
+                filter_condition = fairmode_parameters.get_filter_condition()
+                admin_class = fairmode_parameters.get_admin_id_class()
+
+                print(admin_file)
+
+                for i, admin in enumerate(admin_file):
+                    #build zone full file
+                    print(admin)
+                    zones = build_zones(app_root, admin)
+                    out = build_out(app_root)
+                    print('build_zones(admin)', zones)
+                    print('out-->', out)
+                    print('admin_col[i]', admin_col[i])
+                    print('admin_val[i]', admin_val[i])
+                    print('admin_id[i]', admin_id[i])
+                    print('filter_condition[i]', filter_condition[i])
+                    print('admin_class[i]', admin_class[i])
+                    main(zones, grid, client, out, grid_type=grid_type,
+                         admin_type_col=admin_col[i], admin_type_val=admin_val[i], admin_id=admin_id[i],
+                         filter_condition=filter_condition[i], admin_class=admin_class[i],
+                         to_tons_factor=to_tons_factor)
+                #sys.exit(0)
+            print('...main finished')
+            print("DASK client shutdown")
+            client.shutdown()
+            #main(zones, pollutant, client)
     except KeyboardInterrupt:
         print("User has interrupted the process")
         print("DASK client shutdown")
