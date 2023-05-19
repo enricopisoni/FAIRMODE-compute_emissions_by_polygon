@@ -51,6 +51,20 @@ It is strongly reccomended to create a brand new compatible env. To do this, go 
 
 ## Executing program
 
+* To run directly the python code: <br>
+
+If you have some experience in a python IDE run directly there 'main_asc.py' or 'main_geotiff.py'<br>
+After this test, we strongly suggest you to work on a copy of one of those "main".py and check/editing your copy. <br> 
+
+Relevant lines to change/edit: <br>
+
+_ from 10 to 19: input folder definition <br>
+_ from 20 to 21: the gridded data filenames (input) <br>
+_ from 23 to 26: output path <br>
+_ 27: input type (GTIFF/ASC) <br>
+_ 28: the conversion factor from your measure unit to destination (i.e. from input data measure unit to Ktons) <br>
+
+
 ### SCRIPT DESCRIPTION
 
 * EXAMPLE -1- (default mode, single ASC file)
@@ -72,13 +86,6 @@ It is strongly reccomended to create a brand new compatible env. To do this, go 
 
 [$app_root/dev/sh/do_GTIFF_folder.sh] <br>
 [$app_root\dev\sh\do_GTIFF_folder.bat] <br>
-
-* EXAMPLE -5- (default mode, to run directly the python code) <br>
-
-run directly in a python environent the 'main*.py' code, after having modified rows 12, 17 and 21  <br>
-These 3 rows allows to select the type of data format (asc vs gtiff) and the gridded data filenames.  <br>
-
-Relevant parameter in the script file is the measure unit conversion (put the "to kTons" factor as described in all the examples)
 
 ## Input description
 
@@ -105,7 +112,7 @@ Splitting we have: <br>
 | PM2_5     | PM2.5   | ...       |
 | PM10      | PM10   | ...       |
 
-(6) Valid GNFR = [GF, GC, GKL, GAB, GG, GE, GD, GHI, GJ] <br>
+(6) Valid GNFR = [GNFRF, GGNFRC, GNFRKL, GNFRAB, GNFRG, GNFRE, GNFRD, GNFRHI, GNFRJ] <br>
 
 Traffic (GNFR F), commercial and residential (GNFR C), agriculture (GNFR K + L), industry (GNFR A + B), shipping (GNFR G), Solvents (GNFR E), Fugitive (GNFR D), Off-road (GNFR I + H), Waste (GNFR J)
 
@@ -132,9 +139,8 @@ The output must have at least the following columns. Other fields are considered
 
 Check the existence of the following subfolders: <br>
 $app_root/polygons <br>
-_NUTS_RG_01M_2021_4326 <br>
 _URAU_RG_100K_2020_4326_FUA <br>
-_URAU_RG_100K_2021_4326_FUA <br>
+_NUTS_RG_01M_2016_4326 <br>
 -->Don't remove or change them<--
 
 
