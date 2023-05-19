@@ -97,13 +97,13 @@ Splitting we have: <br>
 
 
 | Code Name | Description | Info |
-|--------------|-----------|------------|
-| NOX | NOx      | ...        |
-| NMVOC      | NMVOC   | ...       |
-| NH3     | NH3   | ...      |
-| SO2      | SO2   | ...       |
-|  PM2.5     | PM2.5   | ...       |
-| PM10     | PM10   | ...       |
+|-----------|-----------|------------|
+| NOX       | NOx      | ...        |
+| NMVOC     | NMVOC   | ...       |
+| NH3       | NH3   | ...      |
+| SO2       | SO2   | ...       |
+| PM2_5     | PM2.5   | ...       |
+| PM10      | PM10   | ...       |
 
 (6) Valid GNFR = [GF, GC, GKL, GAB, GG, GE, GD, GHI, GJ] <br>
 
