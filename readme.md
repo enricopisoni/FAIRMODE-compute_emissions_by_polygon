@@ -75,17 +75,14 @@ It is strongly reccomended to create a brand new compatible env. To do this, go 
 
 * EXAMPLE -5- (default mode, to run directly the python code) <br>
 
-run directly in a python environment the 'main*.py' code, after having modified rows 12, 17 and 21  <br>
-These 3 rows allows to select the type of data format (asc vs gtiff) and the gridded data filenames.  <br>
+run directly in a python environment the 'main*.py' code, after having modified rows:  <br>
+_ from 10 to 19: input folder definition <br>
+_ from 20 to 21: the gridded data filenames <br>
+_ from 23 to 26: output path <br>
+_ 27: input type (GTIFF/ASC) <br>
+_ 28: the measure unit conversion factor (from input datas measure unit to Ktons) <br>
 
-* EXAMPLE -5- (default mode, to run directly the python code) <br>
-
-run directly in a python environment the 'main*.py' code, after having modified rows with path setting:  <br>
-_ from 10 to 19 input folder definition <br>
-_ from 20 to 21 the gridded data filenames <br>
-_ from 23 to 26 output path <br>
-_ 27 input type (GTIFF/ASC) <br>
-_ 28 the measure unit conversion factor (from input datas measure unit to Ktons) <br>
+* Suggestion: copy your own main.py and check/editing your copy.
 
 ## Input description
 
