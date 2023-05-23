@@ -96,9 +96,9 @@ InventoryName_IstitutionName_CountryCode_Pollutant_GNFR_ID_epsgXXXXX_year_desc.e
 #Valid file example <br>
 
 #THESE ARE ONLY TEST FILES, don't look at the name itself. <br>
---> CHMI_RIMM_CZ_NO2_ALL_EPSG28403_2017_MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
+--> CHMI_RIMM_CZ_NOX_GNFRF_EPSG28403_2017_MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
 Splitting we have: <br>
---> CHMI RIMM CZ NO2 ALL EPSG28403 2017 MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
+--> CHMI RIMM CZ NOX GNFRF EPSG28403 2017 MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
 (5) Valid Pollutant = [NOX, SO2, PM2.5, PM10, NMVOC, NH3] <br>
 
 
