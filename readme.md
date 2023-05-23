@@ -51,6 +51,20 @@ It is strongly reccomended to create a brand new compatible env. To do this, go 
 
 ## Executing program
 
+* To run directly the python code: <br>
+
+If you have some experience in a python IDE run directly there 'main_asc.py' or 'main_geotiff.py'<br>
+After this test, we strongly suggest you to work on a copy of one of those "main".py and check/editing your copy. <br> 
+
+Relevant lines to change/edit: <br>
+
+_ from 10 to 19: input folder definition <br>
+_ from 20 to 21: the gridded data filenames (input) <br>
+_ from 23 to 26: output path <br>
+_ 27: input type (GTIFF/ASC) <br>
+_ 28: the conversion factor from your measure unit to destination (i.e. from input data measure unit to Ktons) <br>
+
+
 ### SCRIPT DESCRIPTION
 
 * EXAMPLE -1- (default mode, single ASC file)
@@ -72,17 +86,6 @@ It is strongly reccomended to create a brand new compatible env. To do this, go 
 
 [$app_root/dev/sh/do_GTIFF_folder.sh] <br>
 [$app_root\dev\sh\do_GTIFF_folder.bat] <br>
-
-* EXAMPLE -5- (default mode, to run directly the python code) <br>
-
-run directly in a python environment the 'main*.py' code, after having modified rows:  <br>
-_ from 10 to 19: input folder definition <br>
-_ from 20 to 21: the gridded data filenames <br>
-_ from 23 to 26: output path <br>
-_ 27: input type (GTIFF/ASC) <br>
-_ 28: the measure unit conversion factor (from input datas measure unit to Ktons) <br>
-
-* Suggestion: copy your own main.py and check/editing your copy.
 
 ## Input description
 
