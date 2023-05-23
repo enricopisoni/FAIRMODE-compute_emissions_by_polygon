@@ -5,6 +5,13 @@ import fairmode_parameters
 
 
 def merge_all(output_path, checked_files_no, admin_filter, merge_target):
+    """Put together csv files in a single one
+
+    :param output_path:  input folder (with list of previously created csv)
+    :param checked_files_no: check how many files...
+    :param admin_filter: which admin we are testing (last part of each single file_name)
+    :param merge_target: final full output file_name
+    """
 
     search_filter=os.path.join(output_path, '*_'+admin_filter+'*.csv')
     file_list = glob(search_filter)
@@ -33,6 +40,14 @@ def merge_all(output_path, checked_files_no, admin_filter, merge_target):
 
 
 def check_missing_poll_sect_combination(output_path, selected_admin):
+    """Check all the combination of pollutants/sectors (for a specific admin code)
+
+    :param output_path:  input folder (with list of previously created csv)
+    :param selected_admin: which admin we are testing (last part of each single file_name)
+    :return boolean: number of expected files is good
+            int: number of correct files
+            string: suggested output file_name
+    """
 
     search_filter=os.path.join(output_path, '*'+selected_admin+'*.csv')
     file_list = glob(search_filter)
@@ -72,6 +87,11 @@ def check_missing_poll_sect_combination(output_path, selected_admin):
 
 
 def finalize(split_folder, merge_target_folder):
+    """Do all the checks for each predefined admin/polygons
+
+    :param split_folder:  input folder (with list of previously created csv)
+    :param merge_target_folder: final merged csv folder
+    """
 
     admin_class = fairmode_parameters.get_admin_id_class()
 

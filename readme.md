@@ -58,11 +58,10 @@ After this test, we strongly suggest you to work on a copy of one of those "main
 
 Relevant lines to change/edit: <br>
 
-_ from 10 to 19: input folder definition <br>
-_ from 20 to 21: the gridded data filenames (input) <br>
-_ from 23 to 26: output path <br>
-_ 27: input type (GTIFF/ASC) <br>
-_ 28: the conversion factor from your measure unit to destination (i.e. from input data measure unit to Ktons) <br>
+_ from 21 to 30: input folder definition <br>
+_ from 33 to 24: the gridded data filenames (input) <br>
+_ from 37 to 40: output path <br>
+_ 43/44: input type (GTIFF/ASC) / the conversion factor from your measure unit to destination (i.e. from input data measure unit to Ktons) <br>
 
 
 ### SCRIPT DESCRIPTION
