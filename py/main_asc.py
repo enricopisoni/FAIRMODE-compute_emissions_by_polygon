@@ -30,7 +30,7 @@ if __name__ == "__main__":
     grid_sel=os.path.join(grid_sel, model_sub_path)
 
     # put someway you input here (one by one or with a smart cycle...)
-    grid_sel1=os.path.join(grid_sel, 'CHMI_RIMM_CZ_NOX_GNFRC_EPSG28403_2017_MAP-FILE2019-09-16b6fc2e-816.asc')
+    grid_sel1=os.path.join(grid_sel, 'CHMI_RIMM_CZ_NOX_GNFRF_EPSG28403_2017_MAP-FILE2019-09-16b6fc2e-816.asc')
     grid_sel2=os.path.join(grid_sel, 'CHMI_RIMM_CZ_PM10_GNFRAB_EPSG28403_2017_MAP-FILE2019-09-16b6fc2e-817.asc')
 
     # building intermediate full path (data grid --> csv)
