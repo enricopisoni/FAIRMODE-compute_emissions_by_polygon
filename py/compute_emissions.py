@@ -20,12 +20,12 @@ from fairmode_parameters import build_out as build_out
 
 #from multiprocessing import Pool
 
-# TODO if the grid is huge there would be the necessity to limit the extent
+# TODO: if the grid is huge there would be the necessity to limit the extent
+# TODO: Consider this https://stackoverflow.com/questions/14697442/faster-way-of-polygon-intersection-with-shapely
 # Done: remove extra columns (as described in readme file)
 # Done: force specific pollutant name and GNFR (look at the readme)
 # Done: display a warning if some combination of polluttant/sector is missing, after this check do the following
 # Done: ... as final option: merge global csv in a single file
-
 #res_path.append('2020_CTS')
 #res_path.append('2021_CTS')
 
