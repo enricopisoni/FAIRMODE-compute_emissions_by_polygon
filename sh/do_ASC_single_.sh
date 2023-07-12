@@ -14,7 +14,8 @@ grid_root=$root_path$data_sub_path
 grid_root=$grid_root$grid_sub_path
 grid_root=$grid_root$model_sub_path
 filter="*.asc"
-#input measure unit --> Tg yr-1
+#if input measure unit --> Tg yr-1, otherwise change accordingly to your input measure unit
+#requested final measure unit is kTons, put here the conversion factor (multiply by...)
 to_kton=1000
 
 find $grid_root -name $filter|while read fgrid; do
