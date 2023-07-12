@@ -40,8 +40,15 @@ if __name__ == "__main__":
     split_path = os.path.join(split_path, 'zs')
 
     # set few parameters
-    to_kton=1000
     grid_type='ASC'
+    # put here the proper conversion factor to KTons
+    # if you have 10^6 Tons as source measure unit (in your file)
+    to_kton=1000
+    # if you have Tons as source measure unit (in your file)
+    #to_kton=0.001
+    #or put the right value that fit your case
+    #to_kton=??
+
 
     # two examples...
     compute_emissions.run_manually(app_root, grid_sel1, split_path, grid_type, to_kton)

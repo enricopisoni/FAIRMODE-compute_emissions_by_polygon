@@ -18,7 +18,8 @@ grid_sub_path="bottom_up_emissions/"
 grid_sel=$app_root$data_sub_path
 grid_sel=$grid_sel$grid_sub_path
 grid_sel=$grid_sel$model_sub_path
-#input measure unit --> Tg yr-1
+#if input measure unit --> Tg yr-1, otherwise change accordingly to your input measure unit
+#requested final measure unit is kTons, put here the conversion factor (multiply by...)
 to_kton=1000
 
 fname=AMS-MINNI_ENEA_IT_NOX_GB_EPSG32632_2015_MAP-FILE-20210205-e45c21-913.tif

@@ -1,12 +1,10 @@
-import os
-import sys
-import warnings
-from time import time
-
 import dask
 import geopandas as gpd
 import numpy as np
+import os
 import pandas as pd
+import sys
+import warnings
 import xarray as xr
 import xrspatial
 from dask import delayed
@@ -14,6 +12,7 @@ from dask.distributed import Client, LocalCluster
 from geocube.api.core import make_geocube
 from pyproj import CRS
 from shapely.geometry import box
+from time import time
 
 import fairmode_parameters
 from fairmode_parameters import build_out as build_out
@@ -170,6 +169,8 @@ def do_CAMS(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor):
         for sector in list(tds.keys()):
             if sector == "Latitude-Longitude":
                 continue
+            # ToDo 20230712: fix bug when a multipolygon create more than one
+            # ToDo 20230712: value for a single admin (sum together and keep only one row in the dataframe)
             val = np.round(
                 xrspatial.zonal.stats(
                     amm_mask_grid.IUID, tds.get(sector), stats_funcs=["sum"]
@@ -230,6 +231,8 @@ def do_GTIFF(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor, year
         if dataset == "Latitude-Longitude":
             continue
         try:
+            # ToDo 20230712: fix bug when a multipolygon create more than one
+            # ToDo 20230712: value for a single admin (sum together and keep only one row in the dataframe)
             val = np.round(
                 xrspatial.zonal.stats(
                     amm_mask_grid.IUID, tds.get(dataset).squeeze(), stats_funcs=["sum"]
@@ -296,6 +299,8 @@ def do_ASC(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor, year, 
         if dataset == "Latitude-Longitude":
             continue
         try:
+            # ToDo 20230712: fix bug when a multipolygon create more than one
+            # ToDo 20230712: value for a single admin (sum together and keep only one row in the dataframe)
             val = np.round(
                 xrspatial.zonal.stats(
                     amm_mask_grid.IUID, tds.get(dataset).squeeze(), stats_funcs=["sum"]
@@ -349,6 +354,8 @@ def do_EMEP(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor):
         for sector in list(tds.keys()):
             if sector == "Latitude-Longitude":
                 continue
+            # ToDo 20230712: fix bug when a multipolygon create more than one
+            # ToDo 20230712: value for a single admin (sum together and keep only one row in the dataframe)
             val = np.round(
                 xrspatial.zonal.stats(
                     amm_mask_grid.IUID, tds.get(sector), stats_funcs=["sum"]
@@ -432,6 +439,8 @@ def do_EMEP_split(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor)
                 {"lat": xds.lat, "lon": xds.lon}
             )
             single_grid = xds_selected * amm_mask_grid.perc * to_tons_factor
+            # ToDo 20230712: fix bug when a multipolygon create more than one
+            # ToDo 20230712: value for a single admin (sum together and keep only one row in the dataframe)
             val = np.round(
                 xrspatial.zonal.stats(
                     amm_mask_grid.IUID, single_grid, stats_funcs=["sum"]

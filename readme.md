@@ -45,7 +45,7 @@ Requisite:
 _python 3.10
 _conda installation: conda https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html#starting-conda
 
-It is strongly reccomended to create a brand new compatible env. To do this, go to conda prompt. <br>
+It is strongly recommended to create a brand new compatible env. To do this, go to conda prompt. <br>
 (1)Change folder to: $app_root/dev/ <br>
 (2)Type: conda env create --name fm_3_10 --file=fm_3_10.yml <br>
 
@@ -61,7 +61,9 @@ Relevant lines to change/edit: <br>
 _ from 21 to 30: input folder definition <br>
 _ from 33 to 24: the gridded data filenames (input) <br>
 _ from 37 to 40: output path <br>
-_ 43/44: input type (GTIFF/ASC) / the conversion factor from your measure unit to destination (i.e. from input data measure unit to Ktons) <br>
+_ 43: input type (GTIFF/ASC) <br>
+_ 46: the conversion factor from your measure unit to destination <br>
+  in our case we need to convert from source/input data measure unit to Ktons <br>
 
 
 ### SCRIPT DESCRIPTION
