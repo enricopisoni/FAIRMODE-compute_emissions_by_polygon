@@ -19,6 +19,9 @@ SET grid_sel=%root_path%%data_sub_path%
 SET grid_sel=%grid_sel%%grid_sub_path%
 SET grid_sel=%grid_sel%%model_sub_path%
 SET filter="*.asc"
+REM if input measure unit --> Tg yr-1, otherwise change accordingly to your input measure unit
+REM requested final measure unit is kTons, put here the conversion factor (multiply by...)
+SET to_kton=1000
 
 cd %grid_sel%
 REM %conda% activate
