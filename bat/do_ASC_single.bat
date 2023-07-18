@@ -18,7 +18,8 @@ SET grid_sub_path=bottom_up_emissions\
 SET grid_sel=%root_path%%data_sub_path%
 SET grid_sel=%grid_sel%%grid_sub_path%
 SET grid_sel=%grid_sel%%model_sub_path%
-REM input measure unit --> Tg yr-1
+REM if input measure unit --> Tg yr-1, otherwise change accordingly to your input measure unit
+REM requested final measure unit is kTons, put here the conversion factor (multiply by...)
 SET to_kton=1000
 
 SET fname=CHMI_RIMM_CZ_NO2_ALL_EPSG28403_2017_MAP-FILE2019-09-16b6fc2e-816.asc
