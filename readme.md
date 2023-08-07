@@ -151,11 +151,12 @@ _NUTS_RG_01M_2016_4326 <br>
 
 
 Any advise for common problems or issues will be added here.
+<br>
 ```
 2023.07.15 * Issue encountered with different version of numpy (partially fixed with release late July 2023)
 ```
 ```
-2023.08.01 * Please fill / edit in a proper way the conversion factor as specified in "Executing program" <br>
+2023.08.01 * Please fill / edit in a proper way the conversion factor as specified in "Executing program"
 section and/or in the script file you're using (.sh or .bat)
 ```
 ```
