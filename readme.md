@@ -182,6 +182,11 @@ Contributors names and contact info
 * (1.1) 2023.08.07 (1.1) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* fix coastal cells values to polygons <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* minors changes to readme.md <br>
+* (1.2) 2023.08.09 (1.1) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* env folders fixing (output moved under data, zs and merge created) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* .py with wrong example sub_folders fixed <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* update conda and export a better detailed yml <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* minors changes to readme.md <br>
 * () <br>
     * () <br>
 

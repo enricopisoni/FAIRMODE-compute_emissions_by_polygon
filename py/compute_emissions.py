@@ -194,7 +194,7 @@ def do_CAMS(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor):
 def do_GTIFF(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor, year, sect_id):
 
     # convert polygons to raster
-    print('Start GTIFF (single admin/poly)')
+    #print('Start GTIFF (single admin/poly)')
     #print('set spatial dims...')
     xds.rio.set_spatial_dims(x_dim="lon", y_dim="lat", inplace=True)
     #print('... set spatial dims done ')
@@ -287,7 +287,7 @@ def do_GTIFF(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor, year
 def do_ASC(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor, year, sect_id):
 
     # convert polygons to raster
-    print('Start ASC')
+    #print('Start ASC')
     #print('set spatial dims...')
     xds.rio.set_spatial_dims(x_dim="lon", y_dim="lat", inplace=True)
     #print('... set spatial dims done ')
@@ -1043,15 +1043,25 @@ def main(
         #print('***no filter***')
         #print(admin_union[admin_union['OID'] == 13567])
         #print(admin_union[admin_union['perc'] < 0.95])
-        check_lost_data = admin_union.groupby(['OID']).sum()
+        print("\r\nFind and fix coastal cells")
+        sub_set = admin_union[['IUID', 'OID', 'perc', admin_id]].copy()
+        try:
+            check_lost_data = sub_set.groupby(['OID']).sum()
+        except:
+            print(check_lost_data = sub_set.groupby(['OID']).sum())
+            exit()
         #print(check_lost_data[check_lost_data['OID'] == 13567])
         #print(check_lost_data)
         #print('***now filter nan***')
         #print()
-        admin_union_no_nan=admin_union.dropna(subset=[admin_id])
+        admin_union_no_nan=sub_set.dropna(subset=[admin_id])
         #print(admin_union_no_nan[admin_union_no_nan['OID'] == 13567])
         #print(admin_union_no_nan[admin_union_no_nan['perc'] < 0.95])
-        check_lost_data_drop_nan = admin_union_no_nan.groupby(['OID']).sum()
+        try:
+            check_lost_data_drop_nan = admin_union_no_nan.groupby(['OID']).sum()
+        except:
+            print(check_lost_data_drop_nan = admin_union_no_nan.groupby(['OID']).sum())
+            exit()
         #print(check_lost_data_drop_nan)
         #z['c'] = z.apply(lambda row: 0 if row['b'] in (0, 1) else row['a'] / math.log(row['b']), axis=1)
         #admin_union_no_nan['update_perc']=1
@@ -1061,12 +1071,16 @@ def main(
             #print('cycle')
             if row.perc < 0.999:
                 #print('modify -->', row.name, row.IUID, row.perc)
-                check_admin=admin_union.loc[admin_union['OID'] == row.name]
+                check_admin=sub_set.loc[sub_set['OID'] == row.name]
                 #print('**')
                 #print(check_admin)
                 list_not_assigned=check_admin.loc[check_admin['IUID'].isnull()]
                 list_assigned=check_admin.dropna(subset=[admin_id])
-                tot_lost=list_not_assigned.groupby(['OID']).sum()
+                try:
+                    tot_lost=list_not_assigned.groupby(['OID']).sum()
+                except:
+                    print(tot_lost=list_not_assigned.groupby(['OID']).sum())
+                    exit()
                 #tot_lost=list_not_assigned.groupby(['OID'], as_index=False)['perc'].sum()
                 #print('***')
                 for index1, row1 in tot_lost.iterrows():
@@ -1090,7 +1104,8 @@ def main(
                         #print('new-->',admin_union.loc[(admin_union["OID"] == row.name) & (admin_union[admin_id] == row2[admin_id]), "perc"])
                         #print("Testing old version: No replacements")
             else:
-                print('cell full covered -->', row.name, row.IUID)#, row.perc)
+                #print('cell full covered -->', row.name, row.IUID)#, row.perc)
+                a = 1
             #print('****')
             #print(row['OID'], row['perc'])
         '''
@@ -1111,6 +1126,7 @@ def main(
         # scatter data that would too big
         cells_s = client.scatter(cells)
         pollutant_xds_s = client.scatter(pollutant_xds)
+        print("\r\n...done")
 
         # Loops over the UTS
         print('Build dask stuff...')

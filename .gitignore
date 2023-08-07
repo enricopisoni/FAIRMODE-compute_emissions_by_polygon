@@ -2,3 +2,7 @@
 **/idea/
 **/.idea/
 
+/sh/do_GTIFF_folder_replica.sh
+/sh/*.log
+/sh/*.txt
+/*_old.yml

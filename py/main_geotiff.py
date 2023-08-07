@@ -20,8 +20,8 @@ if __name__ == "__main__":
     #app_root='D:\WORK\projects\8-FAIRMODE\FAIRMODE_TOOLS_DEVELOPMENT\COMPUTE_EMISS_BY_POLYGON'
     app_root='/eos/jeodpp/data/projects/FAIRMODE/'
     data_sub_path='data'    
-    #grid_sub_path='bottom_up_emissions'
-    grid_sub_path = 'bottom_up_source'
+    grid_sub_path='bottom_up_emissions'
+    #grid_sub_path = 'bottom_up_source'
     model_sub_path='gtiff'
 
     # building input full path (data grid)
@@ -36,8 +36,9 @@ if __name__ == "__main__":
     # building intermediate full path (data grid --> csv)
     split_path=os.path.join(app_root, 'data')
     split_path = os.path.join(split_path, 'output')
-    merge_target_folder = os.path.join(split_path, 'merge')
     split_path = os.path.join(split_path, 'zs')
+    # building final full path
+    merge_target_folder = os.path.join(split_path, 'merge')
 
     # set few parameters
     grid_type='GTIFF'

@@ -14,7 +14,7 @@ workers=8
 #test setting, change only after the first working run, if you need it
 data_root=$app_root
 data_sub_path="data/"
-grid_sub_path="bottom_up_source/"
+grid_sub_path="bottom_up_emissions/"
 model_format_sub_path="gtiff/"
 
 grid_root=$data_root$data_sub_path$grid_sub_path

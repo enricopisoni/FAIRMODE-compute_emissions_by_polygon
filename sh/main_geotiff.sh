@@ -11,5 +11,5 @@ py_code=$code_root/py/main_geotiff.py
 #test setting, change only after the first working run, if you need it
 #data_root=$app_root
 
-echo $py_exec $py_code
+echo $py_exec $py_code $app_root
 $py_exec $py_code $app_root
