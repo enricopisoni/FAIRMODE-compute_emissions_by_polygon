@@ -1,12 +1,14 @@
 # COOKIEPOLY: computing polygons' emissions starting from gridded emissions
 
 Cookiepoly is a python code to "cut" a well (geo) defined grid onto a selected administrative shape file.
+* Please read carefully instructions and Help // FAQ section specifically to set the "Conversion Unit Factor" 
+* Version 1.1 solves coastal values missing during the conversion from cell to polygons (NUTS3 especially)      
 
 ## Description
 
 It tries to read the most common format: <br>
 GRID <br>
-&nbsp;&nbsp;&nbsp;&nbsp;(1) netcdf. Useful for TOP-DOWN (but with some adaptation also for BU) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;(1) netcdf. Useful for TOP-DOWN (but with some adaptation also for BU, waiting for file test) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;(2) asc (BU) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;(3) geotiff (BU) <br>
 POLYGONS <br>
@@ -145,12 +147,19 @@ _NUTS_RG_01M_2016_4326 <br>
 -->Don't remove or change them<--
 
 
-## Help
+## Help // FAQ
 
 
 Any advise for common problems or issues will be added here.
 ```
-   
+2023.07.15 * Issue encountered with different version of numpy (partially fixed with release late July 2023)
+```
+```
+2023.08.01 * Please fill / edit in a proper way the conversion factor as specified in "Executing program" <br>
+section and/or in the script file you're using (.sh or .bat)
+```
+```
+2023.08.07 * Fix coastal cells "behaviour"
 ```
 
 ## Authors
@@ -165,6 +174,13 @@ Contributors names and contact info
 &nbsp;&nbsp;&nbsp;&nbsp;* Single grid approach <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* Dask approach <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* Polygons id/decoding as parameter <br>
+* (1.0) 2023.07.21 (1.0) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* fixing numpy issue <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* fixing .bat files <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* improved readme.md <br>
+* (1.1) 2023.08.07 (1.1) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* fix coastal cells values to polygons <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* minors changes to readme.md <br>
 * () <br>
     * () <br>
 

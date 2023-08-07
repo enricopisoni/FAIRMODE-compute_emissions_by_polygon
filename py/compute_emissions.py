@@ -1,3 +1,5 @@
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 import dask
 import geopandas as gpd
 import numpy as np
@@ -192,7 +194,7 @@ def do_CAMS(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor):
 def do_GTIFF(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor, year, sect_id):
 
     # convert polygons to raster
-    print('Start GTIFF')
+    print('Start GTIFF (single admin/poly)')
     #print('set spatial dims...')
     xds.rio.set_spatial_dims(x_dim="lon", y_dim="lat", inplace=True)
     #print('... set spatial dims done ')
@@ -222,6 +224,7 @@ def do_GTIFF(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor, year
     #print(year)
     spec_gdf = spec_admin_aoi.loc[spec_admin_aoi["IUID"] == IUID].copy()
     tds = masked
+    #print('tds-->', tds)
     #yr = int(tds.time.dt.year.values)
     for dataset in list(tds.keys()):
         #print('sector')
@@ -231,24 +234,48 @@ def do_GTIFF(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor, year
         if dataset == "Latitude-Longitude":
             continue
         try:
-            # ToDo 20230712: fix bug when a multipolygon create more than one
-            # ToDo 20230712: value for a single admin (sum together and keep only one row in the dataframe)
-            val = np.round(
+            # 20230721: fix bug when a multipolygon create more than one
+            # MM 20230721: value for a single admin (sum together and keep only one row in the dataframe)
+            # ToDo: put this aggregation in a atomic function and call it when necessary (parameters = stats_func?))
+            #print('dataset-->', dataset)
+            #print('vals-->')
+            vals = np.round(
                 xrspatial.zonal.stats(
                     amm_mask_grid.IUID, tds.get(dataset).squeeze(), stats_funcs=["sum"]
                 )["sum"].values,
                 11,
             )
-            # original version (sector as column)
-            # spec_gdf[sector] = np.round(val, 4)
-            # spec_gdf[["pollutant", "year"]] = pollutant, int(yr)
-            # sector as key version
-            spec_gdf[['POLLUTANT', 'YEAR', 'GNF_SECTOR', 'EMIS(kTons)']] = pollutant, int(year), sect_id, np.round(val, 11)
-            stats = pd.concat([stats, spec_gdf], axis=0)
-            # print('... sector done')
-            print(dataset, '... single admin done-->', stats)
+            agg_val = -1.
+
+            for test_val in vals:
+                agg_val=agg_val+test_val
+                print('val...done')
+                #val_test = pd.DataFrame(val).fillna(0).values.astype(np.int32)
+                #val_test = np.asarray(val, dtype=object)
+                # original version (sector as column)
+                # spec_gdf[sector] = np.round(val, 4)
+                # spec_gdf[["pollutant", "year"]] = pollutant, int(yr)
+                # sector as key version
+                #val_test = print(pd.DataFrame(val).values.astype(np.double))
+                print('***intersection***')
+                print('pollutant, int(year), sect_id, test_val')
+                print(pollutant, int(year), sect_id, test_val)
+                print('*-->intersection<--*')
+
+            if agg_val > 0.:
+                spec_gdf[['POLLUTANT', 'YEAR', 'GNF_SECTOR', 'EMIS(kTons)']] = pollutant, int(year), sect_id, agg_val
+                stats = pd.concat([stats, spec_gdf], axis=0)
+                # print('... sector done')
+                print(dataset, '... single admin/poly done-->', stats)
+        except Exception as e:
+            print('Exception in do_GTIFF')
+            print(e, "Error on line {}".format(sys.exc_info()[-1].tb_lineno))
+            print('--->Exception in do_GTIFF<---')
+            #continue
+        '''
         except ValueError:
             print('admin outside, discard')
+        '''
 
     # move this inside the cycle
     # stats = pd.concat([stats, spec_gdf], axis=0)
@@ -844,7 +871,7 @@ def main(
     else:
         out_file = os.path.join(out_folder, f"{model}_{resolution}_{origin}_{pollutant_nm}_{admin_class}.csv")
     #out_file = f"{out_folder}{model}_{resolution}_{origin}_{pollutant_nm}_{admin_class}.csv"
-    print(out_file)
+    print('out_file-->', out_file)
     #sys.exit()
     if os.path.exists(out_file):
         print('Skip, file still there or not valid admin entity \n')
@@ -855,8 +882,9 @@ def main(
 
     # Open Data
     admin_gdf = gpd.read_file(admin_pth)
-    #print('admin_gdf', admin_gdf)
+    #print('admin_gdf-->', admin_gdf)
     pollutant_xds = xr.open_dataset(selected_grid)
+    #print('pollutant_xds-->', pollutant_xds)
 
     # assign the correct projection
     #print(pollutant_xds.rio.crs, grid_crs)
@@ -885,6 +913,9 @@ def main(
         #print('... done')
         #lat = pollutant_xds.y.values
         #lon = pollutant_xds.x.values
+    #print('lat-->', lat)
+    #print('lon-->', lon)
+
 
     #lat = pollutant_xds.lat.values
     #lon = pollutant_xds.lon.values
@@ -943,7 +974,7 @@ def main(
         #print('admin_lvl.shape', admin_lvl.shape)
 
     # only two (exclusive) types of filter: select-only (== condition) or exclude (!= condition) a specific value
-    print(admin_lvl)
+    print('admin_lvl-->', admin_lvl)
     if filter_condition != "":
         filter_col, filter_check, filter_value = filter_condition.split(" ")
         print('filter_col, filter_check, filter_value')
@@ -1008,7 +1039,73 @@ def main(
             (admin_union.geometry.area / admin_union["orig_area"]), 3
         )
         admin_union.loc[admin_union["OID"].isnull(), "perc"] = 1
+        # MM 20230801: check info into the dataframe
+        #print('***no filter***')
+        #print(admin_union[admin_union['OID'] == 13567])
+        #print(admin_union[admin_union['perc'] < 0.95])
+        check_lost_data = admin_union.groupby(['OID']).sum()
+        #print(check_lost_data[check_lost_data['OID'] == 13567])
+        #print(check_lost_data)
+        #print('***now filter nan***')
+        #print()
+        admin_union_no_nan=admin_union.dropna(subset=[admin_id])
+        #print(admin_union_no_nan[admin_union_no_nan['OID'] == 13567])
+        #print(admin_union_no_nan[admin_union_no_nan['perc'] < 0.95])
+        check_lost_data_drop_nan = admin_union_no_nan.groupby(['OID']).sum()
+        #print(check_lost_data_drop_nan)
+        #z['c'] = z.apply(lambda row: 0 if row['b'] in (0, 1) else row['a'] / math.log(row['b']), axis=1)
+        #admin_union_no_nan['update_perc']=1
+        #admin_union_no_nan['update_perc'] = admin_union_no_nan.apply(lambda row: 0 if row['sea']  else row['a'] / math.log(row['b']), axis=1)
+        #check_lost_data_drop_nan.drop['AREA_SQM', 'IUID', 'orig_area']
+        for index, row in check_lost_data_drop_nan.iterrows():
+            #print('cycle')
+            if row.perc < 0.999:
+                #print('modify -->', row.name, row.IUID, row.perc)
+                check_admin=admin_union.loc[admin_union['OID'] == row.name]
+                #print('**')
+                #print(check_admin)
+                list_not_assigned=check_admin.loc[check_admin['IUID'].isnull()]
+                list_assigned=check_admin.dropna(subset=[admin_id])
+                tot_lost=list_not_assigned.groupby(['OID']).sum()
+                #tot_lost=list_not_assigned.groupby(['OID'], as_index=False)['perc'].sum()
+                #print('***')
+                for index1, row1 in tot_lost.iterrows():
+                    tot_lost = row1['perc']
+                    tot_admin = 1. - tot_lost
+                    for index2, row2 in list_assigned.iterrows():
+                        #print('admin perc', row2['URAU_CODE'], row2['perc'])  # URAU_CODE / perc
+                        #print('admin perc + sea/lost % component',
+                        #print(tot_lost * (row2['perc'] / tot_admin))  # URAU_CODE / perc
+                        #print('admin perc + sea/lost % component', row2['perc']+tot_lost*(row2['perc']/tot_admin)) # URAU_CODE / perc
+                        #print('orig-->',admin_union.loc[(admin_union["OID"] == row.name) & (admin_union["URAU_CODE"] == row2['URAU_CODE']), "perc"])
+                        #print('tot_admin-->',tot_admin)
+                        replace_value=row2['perc']
+                        if tot_admin != 0:
+                            replace_value=row2['perc'] + tot_lost * (row2['perc'] / tot_admin)
+                        admin_union.loc[
+                            (admin_union["OID"] == row.name) & (admin_union[admin_id] == row2[admin_id]), "perc"] = \
+                            replace_value
 
+
+                        #print('new-->',admin_union.loc[(admin_union["OID"] == row.name) & (admin_union[admin_id] == row2[admin_id]), "perc"])
+                        #print("Testing old version: No replacements")
+            else:
+                print('cell full covered -->', row.name, row.IUID)#, row.perc)
+            #print('****')
+            #print(row['OID'], row['perc'])
+        '''
+        for redistr in check_lost_data_drop_nan:
+            lost_perc=1-redistr
+            for fix_admin_perc in admin_union_no_nan[redistr['OID']]:
+                admin_union[redistr]=aa
+        '''
+        #print(check_lost_data_drop_nan[check_lost_data_drop_nan['OID'] == 13567])
+        #print(check_lost_data[check_lost_data['perc'] < 0.95])
+        #print(check_lost_data)
+        #print(check_lost_data[check_lost_data['perc'] < 0.95])
+        # end
+        #exit()
+        #print('*****')
         delayed_regions = []
 
         # scatter data that would too big
@@ -1167,6 +1264,7 @@ if __name__ == "__main__":
     merge_mode = False
 
     #sys.exit(0)
+    print('**check mode**')
     if len(sys.argv) == 13:
         print('run_std_mode')
         zones = sys.argv[1]
@@ -1202,6 +1300,7 @@ if __name__ == "__main__":
         result_path = sys.argv[1]
         merge_target_path = sys.argv[2]
         merge_mode=True
+    print('-->check mode<--')
 
     warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -1232,6 +1331,10 @@ if __name__ == "__main__":
 
             if run_adv_mode:
                 # put here explicitly a singl input combination
+                print('**running adv mode**')
+                print(zones)
+                print(grid)
+                print(out)
                 main(zones, grid, client, out, grid_type=grid_type, admin_type_col=admin_type_col,
                      admin_type_val=admin_type_val, admin_id=admin_id,
                      filter_condition=filter_condition, admin_class=admin_class, to_tons_factor=to_tons_factor)
