@@ -103,7 +103,7 @@ InventoryName_IstitutionName_CountryCode_Pollutant_GNFR_ID_epsgXXXXX_year_desc.e
 --> CHMI_RIMM_CZ_NOX_GNFRF_EPSG28403_2017_MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
 Splitting we have: <br>
 --> CHMI RIMM CZ NOX GNFRF EPSG28403 2017 MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
-(5) Valid Pollutant = [NOX, SO2, PM2.5, PM10, NMVOC, NH3] <br>
+(5) Valid Pollutant = [NOX, SO2, PM2_5, PM10, NMVOC, NH3] <br>
 
 
 | Code Name | Description | Info |
@@ -137,6 +137,9 @@ Traffic (GNFR F), commercial and residential (GNFR C), agriculture (GNFR K + L),
 The output must have at least the following columns. Other fields are considered as optional information.
 
 | NUTS_ID // FUA_ID    | CNTR_CODE   | NAME_LATN    | POLLUTANT   | YEAR  | SECTOR   | EMIS(kTons)  |
+
+For NUTS shape, please use NUTS_ID
+For FUA shape, please use URAU_CODE
 
 **ENV DATA**
 
@@ -187,6 +190,9 @@ Contributors names and contact info
 &nbsp;&nbsp;&nbsp;&nbsp;* .py with wrong example sub_folders fixed <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* update conda and export a better detailed yml <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* minors changes to readme.md <br>
+* (1.3) 2023.08.09 (1.1) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* Added 2021 NUTS shape file <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* Added NUTS and FUA reference column <br>
 * () <br>
     * () <br>
 
