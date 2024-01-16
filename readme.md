@@ -147,6 +147,7 @@ Check the existence of the following subfolders: <br>
 $app_root/polygons <br>
 _URAU_RG_100K_2020_4326_FUA <br>
 _NUTS_RG_01M_2016_4326 <br>
+_NUTS_RG_01M_2021_4326 <br>
 -->Don't remove or change them<--
 
 
