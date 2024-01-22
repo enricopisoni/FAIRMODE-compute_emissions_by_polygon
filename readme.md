@@ -136,7 +136,11 @@ Traffic (GNFR F), commercial and residential (GNFR C), agriculture (GNFR K + L),
 
 The output must have at least the following columns. Other fields are considered as optional information.
 
-| NUTS_ID // FUA_ID    | CNTR_CODE   | NAME_LATN    | POLLUTANT   | YEAR  | SECTOR   | EMIS(kTons)  |
+(In case of NUTS option)
+| NUTS_ID    | CNTR_CODE   | NAME_LATN    | POLLUTANT   | YEAR  | SECTOR   | EMIS(kTons)  |
+
+(In case of FUA City option)
+| URAU_CODE    | CNTR_CODE   | NAME_LATN    | POLLUTANT   | YEAR  | SECTOR   | EMIS(kTons)  |
 
 For NUTS shape, please use NUTS_ID
 For FUA shape, please use URAU_CODE
