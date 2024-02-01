@@ -190,14 +190,17 @@ Contributors names and contact info
 * (1.1) 2023.08.07 (1.1) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* fix coastal cells values to polygons <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* minors changes to readme.md <br>
-* (1.2) 2023.08.09 (1.1) <br>
+* (1.2) 2023.08.09 (1.2) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* env folders fixing (output moved under data, zs and merge created) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* .py with wrong example sub_folders fixed <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* update conda and export a better detailed yml <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* minors changes to readme.md <br>
-* (1.3) 2023.08.09 (1.1) <br>
+* (1.3) 2023.08.09 (1.3) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* Added 2021 NUTS shape file <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* Added NUTS and FUA reference column <br>
+* (1.4) 2024.02.01 (1.4) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* Updated shape files <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* Updated coding and description <br>
 * () <br>
     * () <br>
 
