@@ -103,7 +103,7 @@ InventoryName_IstitutionName_CountryCode_Pollutant_GNFR_ID_epsgXXXXX_year_desc.e
 --> CHMI_RIMM_CZ_NOX_GNFRF_EPSG28403_2017_MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
 Splitting we have: <br>
 --> CHMI RIMM CZ NOX GNFRF EPSG28403 2017 MAP-FILE2019-09-16b6fc2e-816.asc <-- <br>
-(5) Valid Pollutant = [NOX, SO2, PM2_5, PM10, NMVOC, NH3] <br>
+(5) Valid Pollutant = [NOX, SO2, PM25, PM10, NMVOC, NH3] <br>
 
 
 | Code Name | Description | Info |
@@ -112,7 +112,7 @@ Splitting we have: <br>
 | NMVOC     | NMVOC   | ...       |
 | NH3       | NH3   | ...      |
 | SO2       | SO2   | ...       |
-| PM2_5     | PM2.5   | ...       |
+| PM25     | PM2.5   | ...       |
 | PM10      | PM10   | ...       |
 
 (6) Valid GNFR = [GNFRF, GGNFRC, GNFRKL, GNFRAB, GNFRG, GNFRE, GNFRD, GNFRHI, GNFRJ] <br>
@@ -121,15 +121,15 @@ Traffic (GNFR F), commercial and residential (GNFR C), agriculture (GNFR K + L),
 
 | Code Name | Description | Included Sectors |
 |--------------|-----------|------------|
-| GNFRF | Traffic      | GNFR F        |
-| GNFRC      | Commercial and Residential   | GNFR C       |
-| GNFRKL     | Agriculture   | GNFR K + L      |
 | GNFRAB      | Industry   | GNFR A + B       |
-| GNFRG     | Shipping   | GNFR G       |
-| GNFRE     | Solvents   | GNFR E       |
+| GNFRC      | Commercial and Residential   | GNFR C       |
 | GNFRD    | Fugitive   | GNFR D       |
+| GNFRE     | Solvents   | GNFR E       |
+| GNFRF | Traffic      | GNFR F        |
+| GNFRG     | Shipping   | GNFR G       |
 | GNFRHI    | Off-road   | GNFR I + H       |
 | GNFRJ     | Waste   | GNFR J       |
+| GNFRKL     | Agriculture   | GNFR K + L      |
 
 
 ## Output description
@@ -141,6 +141,9 @@ The output must have at least the following columns. Other fields are considered
 
 (In case of FUA City option)
 | URAU_CODE    | CNTR_CODE   | NAME_LATN    | POLLUTANT   | YEAR  | SECTOR   | EMIS(kTons)  |
+
+* Negative "EMIS(kTons)" are considered missing values (comparison will not be performed)
+* Remove all not relevant administrative entities (NUTS_ID or URAU_CODE) BEFORE send/upload the file
 
 For NUTS shape, please use NUTS_ID
 For FUA shape, please use URAU_CODE
