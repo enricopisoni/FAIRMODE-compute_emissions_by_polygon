@@ -72,23 +72,23 @@ _ 46: the conversion factor from your measure unit to destination <br>
 
 * EXAMPLE -1- (default mode, single ASC file)
 
-[$app_root/dev/sh/do_ASC_single.sh] <br>
-[$app_root\dev\bat\do_ASC_single.bat] <br>
+[$app_root/sh/do_ASC_single.sh] <br>
+[$app_root\bat\do_ASC_single.bat] <br>
 
 * EXAMPLE -2- (default mode, multiple ASC files in a dir) <br>
 
-[$app_root/dev/sh/do_ASC_folder.sh] <br>
-[$app_root\dev\sh\do_ASC_folder.bat] <br>
+[$app_root/sh/do_ASC_folder.sh] <br>
+[$app_root\sh\do_ASC_folder.bat] <br>
 
 * EXAMPLE -3- (default mode, single TIF file) <br>
 
-[$app_root/dev/sh/do_GTIFF_single.sh] <br>
-[$app_root\dev\bat\do_GTIFF_single.bat] <br>
+[$app_root/sh/do_GTIFF_single.sh] <br>
+[$app_root\bat\do_GTIFF_single.bat] <br>
 
 * EXAMPLE -4- (default mode, multiple TIF files in a dir) <br>
 
-[$app_root/dev/sh/do_GTIFF_folder.sh] <br>
-[$app_root\dev\sh\do_GTIFF_folder.bat] <br>
+[$app_root/sh/do_GTIFF_folder.sh] <br>
+[$app_root\sh\do_GTIFF_folder.bat] <br>
 
 ## Input description
 
