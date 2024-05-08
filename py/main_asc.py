@@ -19,6 +19,7 @@ if __name__ == "__main__":
     workers=2
     #app_root='D:\WORK\projects\8-FAIRMODE\FAIRMODE_TOOLS_DEVELOPMENT\COMPUTE_EMISS_BY_POLYGON'
     app_root='/eos/jeodpp/data/projects/FAIRMODE/'
+    #app_root='/cleo03/storage/projects/MM/C5/poly_code/FAIRMODE-compute_emissions_by_polygon/'
     data_sub_path='data'
     grid_sub_path='bottom_up_emissions'
     #grid_sub_path = 'bottom_up_source'
@@ -55,4 +56,5 @@ if __name__ == "__main__":
     compute_emissions.run_manually(app_root, grid_sel1, split_path, grid_type, to_kton)
     compute_emissions.run_manually(app_root, grid_sel2, split_path, grid_type, to_kton)
     # merge together
+    print('merge_target_folder-->', merge_target_folder)
     post_proc.finalize(split_path, merge_target_folder)
