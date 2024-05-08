@@ -177,13 +177,16 @@ def do_CAMS(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor):
                 xrspatial.zonal.stats(
                     amm_mask_grid.IUID, tds.get(sector), stats_funcs=["sum"]
                 )["sum"].values,
-                11,
+                7,
             )
+            # 20240508: fix bug @val convert from list to single value
+            if len(val) > 0:
+                val = val[0]
             # original version (sector as column)
             # spec_gdf[sector] = np.round(val, 4)
             # spec_gdf[["pollutant", "year"]] = pollutant, int(yr)
             # sector as key version
-            spec_gdf[['POLLUTANT', 'YEAR', 'GNF_SECTOR', 'EMIS(kTons)']] = pollutant, int(yr), sector, np.round(val, 11)
+            spec_gdf[['POLLUTANT', 'YEAR', 'GNF_SECTOR', 'EMIS(kTons)']] = pollutant, int(yr), sector, val
             stats = pd.concat([stats, spec_gdf], axis=0)
         # move this inside the cycle
         # stats = pd.concat([stats, spec_gdf], axis=0)
@@ -243,7 +246,7 @@ def do_GTIFF(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor, year
                 xrspatial.zonal.stats(
                     amm_mask_grid.IUID, tds.get(dataset).squeeze(), stats_funcs=["sum"]
                 )["sum"].values,
-                11,
+                7,
             )
             agg_val = -1.
 
@@ -328,19 +331,24 @@ def do_ASC(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor, year, 
         try:
             # ToDo 20230712: fix bug when a multipolygon create more than one
             # ToDo 20230712: value for a single admin (sum together and keep only one row in the dataframe)
+            #print('(1)')
             val = np.round(
                 xrspatial.zonal.stats(
                     amm_mask_grid.IUID, tds.get(dataset).squeeze(), stats_funcs=["sum"]
                 )["sum"].values,
-                11,
+                7,
             )
+            # 20240508: fix bug @val convert from list to single value
+            if len(val) > 0:
+                val = val[0]
             # original version (sector as column)
             # spec_gdf[sector] = np.round(val, 4)
             # spec_gdf[["pollutant", "year"]] = pollutant, int(yr)
             # sector as key version
-            spec_gdf[['POLLUTANT', 'YEAR', 'GNF_SECTOR', 'EMIS(kTons)']] = pollutant, int(year), sect_id, np.round(val, 11)
+            spec_gdf[['POLLUTANT', 'YEAR', 'GNF_SECTOR', 'EMIS(kTons)']] = pollutant, int(year), sect_id, np.round(val, 7)
+            #print('(3)')
             stats = pd.concat([stats, spec_gdf], axis=0)
-            # print('... sector done')
+            print('... sector done')
             print(dataset, '... single admin done-->', stats)
         except ValueError:
             print('admin outside, discard')
@@ -387,13 +395,16 @@ def do_EMEP(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor):
                 xrspatial.zonal.stats(
                     amm_mask_grid.IUID, tds.get(sector), stats_funcs=["sum"]
                 )["sum"].values,
-                4,
+                7,
             )
+            # 20240508: fix bug @val convert from list to single value
+            if len(val) > 0:
+                val = val[0]
             # original version (sector as column)
             # spec_gdf[sector] = np.round(val, 4)
             # spec_gdf[["pollutant", "year"]] = pollutant, int(yr)
             # sector as key version
-            spec_gdf[['POLLUTANT', 'YEAR', 'GNF_SECTOR', 'EMIS(kTons)']] = pollutant, int(yr), sector, np.round(val, 4)
+            spec_gdf[['POLLUTANT', 'YEAR', 'GNF_SECTOR', 'EMIS(kTons)']] = pollutant, int(yr), sector, val
             stats = pd.concat([stats, spec_gdf], axis=0)
         # move this inside the cycle
         # stats = pd.concat([stats, spec_gdf], axis=0)
@@ -472,13 +483,16 @@ def do_EMEP_split(AOI_wgs, xds, spec_admin_aoi, IUID, pollutant, to_tons_factor)
                 xrspatial.zonal.stats(
                     amm_mask_grid.IUID, single_grid, stats_funcs=["sum"]
                 )["sum"].values,
-                11,
+                7,
             )
+            # 20240508: fix bug @val convert from list to single value
+            if len(val) > 0:
+                val = val[0]
             # original version (sector as column)
             # spec_gdf[sector] = np.round(val, 4)
             # spec_gdf[["pollutant", "year"]] = pollutant, int(yr)
             # sector as key version
-            spec_gdf[['POLLUTANT', 'YEAR', 'GNF_SECTOR', 'EMIS(kTons)']] = pollutant, int(year), sect_name, np.round(val, 11)
+            spec_gdf[['POLLUTANT', 'YEAR', 'GNF_SECTOR', 'EMIS(kTons)']] = pollutant, int(year), sect_name, val
             #if val > 0.00001:
             #    print(year, sect, val)
             stats = pd.concat([stats, spec_gdf], axis=0)
