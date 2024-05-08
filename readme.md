@@ -33,8 +33,8 @@ POLYGONS <br>
 (3)-->Follow PYTHON/CONDA ENV instructions<-- <br>
 (4)Create (or check the existence and the full permission of) $app_root/output <br>
 (5)Change/adapt the scripts <br>
-&nbsp;&nbsp;&nbsp;&nbsp;(a)for windows they are in $app_root + \dev\bat\*.bat <br>
-&nbsp;&nbsp;&nbsp;&nbsp;(b)for unix they are in $app_root + /dev/sh/*.sh <br>
+&nbsp;&nbsp;&nbsp;&nbsp;(a)for windows they are in $app_root + \bat\*.bat <br>
+&nbsp;&nbsp;&nbsp;&nbsp;(b)for unix they are in $app_root + /sh/*.sh <br>
 &nbsp;&nbsp;&nbsp;&nbsp;(c)Change properly $app_root value (for the scripts related to your installation Win or Unix) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;(d)Change properly $py_exec value (put exactly the full path folder of your conda/bin python3_10 executable) <br>
 (6)Create $app_root/output/zs folder <br>
@@ -48,7 +48,7 @@ _python 3.10
 _conda installation: conda https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html#starting-conda
 
 It is strongly recommended to create a brand new compatible env. To do this, go to conda prompt. <br>
-(1)Change folder to: $app_root/dev/ <br>
+(1)Change folder to: $app_root/ <br>
 (2)Type: conda env create --name fm_3_10 --file=fm_3_10.yml <br>
 
 ## Executing program
@@ -61,7 +61,7 @@ After this test, we strongly suggest you to work on a copy of one of those "main
 Relevant lines to change/edit: <br>
 
 _ from 21 to 30: input folder definition <br>
-_ from 33 to 24: the gridded data filenames (input) <br>
+_ from 33 to 34: the gridded data filenames (input) <br>
 _ from 37 to 40: output path <br>
 _ 43: input type (GTIFF/ASC) <br>
 _ 46: the conversion factor from your measure unit to destination <br>
