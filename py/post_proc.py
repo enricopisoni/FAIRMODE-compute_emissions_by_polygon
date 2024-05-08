@@ -1,5 +1,6 @@
 import os
 from glob import glob
+from pathlib import Path
 
 import fairmode_parameters
 
@@ -92,6 +93,14 @@ def finalize(split_folder, merge_target_folder):
     :param split_folder:  input folder (with list of previously created csv)
     :param merge_target_folder: final merged csv folder
     """
+
+
+    if not os.path.exists(merge_target_folder):
+        Path(merge_target_folder).mkdir( parents=True, exist_ok=True )
+        #os.mkdir(merge_target_folder)
+        print("Folder %s created!" % merge_target_folder)
+    else:
+        print("Folder %s already exists" % merge_target_folder)
 
     admin_class = fairmode_parameters.get_admin_id_class()
 
