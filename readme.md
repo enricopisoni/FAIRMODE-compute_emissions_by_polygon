@@ -146,8 +146,8 @@ The output must have at least the following columns. Other fields are considered
 * In the final/export csv please use "." not "," as float separator between integer part and decimal part
 * Remove all not relevant administrative entities (NUTS_ID or URAU_CODE) BEFORE send/upload the file
 
-For NUTS shape, please use NUTS_ID (We're using version 2016 --> NUTS_RG_01M_2016_4326)
-For FUA shape, please use URAU_CODE (We're using version 2020 --> URAU_RG_100K_2020_4326_FUA)
+For NUTS shape, please use NUTS_ID (We're using version 2016 --> NUTS_RG_01M_2016_4326) <br>
+For FUA shape, please use URAU_CODE (We're using version 2020 --> URAU_RG_100K_2020_4326_FUA) <br>
 
 **ENV DATA**
 
