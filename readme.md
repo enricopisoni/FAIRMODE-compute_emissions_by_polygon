@@ -143,10 +143,11 @@ The output must have at least the following columns. Other fields are considered
 | URAU_CODE    | CNTR_CODE   | NAME_LATN    | POLLUTANT   | YEAR  | SECTOR   | EMIS(kTons)  |
 
 * Negative "EMIS(kTons)" are considered missing values (comparison will not be performed)
+* In the final/export csv please use "." not "," as float separator between integer part and decimal part
 * Remove all not relevant administrative entities (NUTS_ID or URAU_CODE) BEFORE send/upload the file
 
-For NUTS shape, please use NUTS_ID
-For FUA shape, please use URAU_CODE
+For NUTS shape, please use NUTS_ID (We're using version 2016 --> NUTS_RG_01M_2016_4326)
+For FUA shape, please use URAU_CODE (We're using version 2020 --> URAU_RG_100K_2020_4326_FUA)
 
 **ENV DATA**
 
@@ -204,6 +205,8 @@ Contributors names and contact info
 * (1.4) 2024.02.01 (1.4) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* Updated shape files <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* Updated coding and description <br>
+* (1.5) 2024.06.14 (1.4) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* Updated readme instructions <br>
 * () <br>
     * () <br>
 
