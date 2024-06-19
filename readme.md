@@ -174,6 +174,9 @@ section and/or in the script file you're using (.sh or .bat)
 ```
 2023.08.07 * Fix coastal cells "behaviour"
 ```
+```
+2024.06.17 * Knowing bug: avoid to use explicit NaN value in the tiff/input file
+```
 
 ## Authors
 
@@ -207,6 +210,8 @@ Contributors names and contact info
 &nbsp;&nbsp;&nbsp;&nbsp;* Updated coding and description <br>
 * (1.5) 2024.06.14 (1.4) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;* Updated readme instructions <br>
+* (1.6) 2024.06.19 (1.4) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;* Updated readme instructions, bug on NaN in the tif file <br>
 * () <br>
     * () <br>
 
